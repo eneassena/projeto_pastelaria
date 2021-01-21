@@ -17,7 +17,6 @@ class area_restritaController extends Controller
 			$this->dados_area_restrita['pedido_restrita'] = $this->admin->consulta_pedido_edit();
 		} catch (Exception $e) {
 			$this->dados_area_restrita['erro'] = $e->getMessage();
-			$this->carregarTemplate('pagina-erro', $this->dados_area_restrita, "Área Restrita - Error");
 		} finally {
 			Restrita::$conn = null;
 		}

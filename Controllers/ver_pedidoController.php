@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 
@@ -11,40 +11,35 @@ class ver_pedidoController extends Controller
 	public $dados_pedido;
 	public function __construct()
 	{
-		try{
+		try
+		{
 			$this->dados_pedido = array();
 			$this->conexaoCar = new Cardapios();
 			$this->dados_pedido['registro_pedido'] = $this->conexaoCar->busca_pedido_feito();
-		} catch(Exception $erro) {
+		} catch(Exception $erro)
+		{
 			$this->dados_pedido['erro']=$erro->getMessage();
-			$this->carregarTemplate('pagina-erro', $this->dados_pedido, "Pastelaria - Error");
-		} finally {
+		} finally
+		{
 			Cardapios::$conn = null;
 		}
-        
 	}
 
 	public function index()
 	{
- 
-		try 
+		try
 		{
 			$this->conexaoCar = new Cardapios();
-			$this->dados_pedido['registro_pedido'] = $this->conexaoCar->busca_pedido_feito(); 
-			$this->carregarTemplate('ver_pedido', $this->dados_pedido, "Pastelaria - Ver Pedido");	
-
-		} catch (Exception $e) 
+			$this->dados_pedido['registro_pedido'] = $this->conexaoCar->busca_pedido_feito();
+			$this->carregarTemplate('ver_pedido', $this->dados_pedido, "Pastelaria - Ver Pedido");
+		} catch (Exception $e)
 		{
-
 			$this->dados_pedido['erro'] = $e->getMessage();
 			$this->carregarTemplate('pagina-erro', $dados_pedido, "Erro");
-		
-		} finally {
+		} finally
+		{
 			Cardapios::$conn = null;
 		}
-		
 	}
-
-
 }
 ?>

@@ -8,7 +8,7 @@ class Core {
 	}
 
 	public function run(){
-	 
+
 		$controller = "homeController";
 		$metodo = "index";
  		$paramentros = array();
@@ -16,9 +16,9 @@ class Core {
 		if(isset($_GET['pag']))
 		{
 			$url = $_GET['pag'];
-			 
+
 		}
-		
+
 		// possui informação apos dominio www.sitex.com/classe/funcao/paramentros
 		if(!empty($url))
 		{
@@ -35,9 +35,9 @@ class Core {
 			{
 				$metodo = 'index';
 			}
-			
+
 			if(count($url) > 0) // se tiver paramentos na url sera pego aqui
-			{ 
+			{
 				if(isset($url[0]) && !empty($url[0])){
 					$paramentros = $url;
 				}
@@ -50,14 +50,14 @@ class Core {
 			$metodo = 'index';
 		}
 
-		$caminho = 'design_patterns/projeto_pastelaria/Controllers/'.$controller.'.php';
+		$caminho = 'laraveltips/projeto_pastelaria/Controllers/'.$controller.'.php';
 
 		if(!file_exists($caminho) && !method_exists($controller, $metodo))
 		{
 			$controller = 'homeController';
 			$metodo = 'index';
 		}
-		 
+
 		call_user_func_array(array(new $controller, $metodo), $paramentros);
 
 	}
@@ -65,4 +65,3 @@ class Core {
 
 
 }
- 

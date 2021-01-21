@@ -1,6 +1,6 @@
-<?php 
+<?php
 /**
- * 
+ *
  */
 class pedidoController extends Controller
 {
@@ -9,62 +9,61 @@ class pedidoController extends Controller
 	public function __construct()
 	{
 		$this->informacao = array();
-		try 
-		{ 
+		try
+		{
 			$objetoCardapio = new Cardapios();
 			$this->informacao['cardapio_pastel'] = $objetoCardapio->consultaCardapio();
-			$this->informacao['bebidas'] = $objetoCardapio->consultaBebidas();	
-			$this->informacao['registro_pedido'] = $objetoCardapio->busca_pedido_feito();		
-		 
+			$this->informacao['bebidas'] = $objetoCardapio->consultaBebidas();
+			$this->informacao['registro_pedido'] = $objetoCardapio->busca_pedido_feito();
+
 			$this->informacao['bairro_entrega'] = $objetoCardapio->busca_bairro_entrega();
 			if(isset($_SESSION['cliente']))
 			{
 				$this->informacao['cliente_logado'] = $objetoCardapio->buscar_cliente_por_id((int)$_SESSION['cliente']['id']);
-				 
 			}
-			
-		} catch (Exception $e) 
+
+		} catch (Exception $e)
 		{
 			$this->informacao['erroDB'] = $e->getMessage();
-			$this->carregarTemplate('pagina-erro', $this->informacao, "Pastelaria - Error");
-
+		} finally {
+			Cardapios::conn = null;
 		}
-		
+
 	}
 
 	// method de iniciação da pagina
 	public function index()
 	{
-		
+
 		$this->carregarTemplate('pedido', $this->informacao, "Pastelaria - Pedido");
 	}
-	
+
 	// adiciona pasteis no carrinho de pastel
 	public function adicionar_pasteis($id)
 	{
 		$limite = 100;
 		if(!isset($_SESSION['carrinho_pastel']))
 		{
-			$_SESSION['carrinho_pastel'] = array();	
+			$_SESSION['carrinho_pastel'] = array();
 		}
-		if(isset($_SESSION['carrinho_pastel'])) 
+		if(isset($_SESSION['carrinho_pastel']))
 		{
 			if(!isset($_SESSION['carrinho_pastel'][$id]))
 			{
-				$_SESSION['carrinho_pastel'][$id] = 1;	
+				$_SESSION['carrinho_pastel'][$id] = 1;
 				$this->informacao['messagem_pastel'] = "Pastel adicionado!";
 			} else {
 				if($_SESSION['carrinho_pastel'][$id] < $limite){
 					$_SESSION['carrinho_pastel'][$id] += 1;
 					$this->informacao['messagem_pastel'] = "+ 1 Unidade do pastel foi adicionada!";
 				} else {
-					
+
 					$this->informacao['messagem_pastel'] = "Atenção, você adicionou o limite maximo de pastéis que é ".$limite."!";
 				}
 			}
-		} 
+		}
 		$this->index();
-		
+
 	}
 
 	// remove pasteis do item de pastel
@@ -83,17 +82,17 @@ class pedidoController extends Controller
 					if($_SESSION['carrinho_pastel'][$id] == 0){
 						unset($_SESSION['carrinho_pastel'][$id]);
 						$this->informacao['messagem_pastel'] = "Pastel removido da cesta!";
-					}  	
+					}
 				} else {
 					$this->informacao['messagem_pastel'] = "Este pastel ainda não existe na cesta!";
 				}
 			}  else {
 				$this->informacao['messagem_pastel'] = "Cesta vasia, impossivel excluir pastel!";
 			}
-			
-		} 
+
+		}
 		$this->index();
-	} 
+	}
 	// adiciona bebidas do item de bebidas
 	public function adicionar_bebidas($id)
 	{
@@ -105,14 +104,14 @@ class pedidoController extends Controller
 
 			if(!isset($_SESSION['carrinho_bebidas'][$id]))
 			{
-				$_SESSION['carrinho_bebidas'][$id] = 1;	
+				$_SESSION['carrinho_bebidas'][$id] = 1;
 				$this->informacao['messagem_pastel'] = "bebida adicionada!";
 			} else {
 				$_SESSION['carrinho_bebidas'][$id] += 1;
 				$this->informacao['messagem_pastel'] = "+ 1 Unidade de bebida adicionada!";
-			}	
+			}
 		}
-		
+
 		$this->index();
 	}
 
@@ -137,12 +136,12 @@ class pedidoController extends Controller
 				} else {
 					$this->informacao['messagem_pastel'] = "Esta bebida ainda não existe na cesta, para ser excluida!";
 				}
-			} 
+			}
 		} else {
 			$this->informacao['messagem_pastel'] = "Cesta vasia, impossivel excluir bebida!";
 		}
 		$this->index();
-	} 
+	}
 
 }
 ?>
