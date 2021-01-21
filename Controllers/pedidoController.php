@@ -26,7 +26,7 @@ class pedidoController extends Controller
 		{
 			$this->informacao['erroDB'] = $e->getMessage();
 		} finally {
-			Cardapios::conn = null;
+			Cardapios::close();
 		}
 
 	}

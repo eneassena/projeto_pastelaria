@@ -3,8 +3,8 @@
 
 require 'lib/database/connexao.php';
 
-class Cardapios
-{
+
+class Cardapios {
     public static $conn;
 
     public function __construct()
@@ -15,6 +15,10 @@ class Cardapios
     public static function getConnection(){
         self::$conn = Connection::getConn();
         return self::$conn;
+    }
+    public static function close()
+    {
+        self::$conn = null;
     }
 
     public function buscar_cliente_por_id($idCliente){
@@ -44,14 +48,14 @@ class Cardapios
 
        try
        {
-        $result = array();
-        $sql = "SELECT * FROM vw_consulta_cardapio ORDER BY valor_unidade ASC, nome ASC;";
-        $sql = Cardapios::getConnection()->prepare($sql);
-        $sql->execute();
-        while($row = $sql->fetchobject('Cardapios'))
-        {
-            $result[] = $row;
-        }
+          $result = array();
+          $sql = "SELECT * FROM vw_consulta_cardapio ORDER BY valor_unidade ASC, nome ASC;";
+          $sql = Cardapios::getConnection()->prepare($sql);
+          $sql->execute();
+          while($row = $sql->fetchobject('Cardapios'))
+          {
+              $result[] = $row;
+          }
         } catch (PDOException $e) {
             throw new Exception("Falha ao acesso no banco de dados", 400);
         } finally {
@@ -281,29 +285,25 @@ class Cardapios
     // funcção busca todos os bairros de entrega e retorna um array()
     // SELECT nome_bairro FROM vw_consulta_bairros;
     public function busca_bairro_entrega()
-	{
+  	{
 
-		try {
+  		try {
 
-            $sql = "SELECT nome_bairro FROM vw_consulta_bairros order by nome_bairro asc;";
-            $sql = Cardapios::getConnection()->prepare($sql);
-            $sql->execute();
+              $sql = "SELECT nome_bairro FROM vw_consulta_bairros order by nome_bairro asc;";
+              $sql = Cardapios::getConnection()->prepare($sql);
+              $sql->execute();
 
-            $result = array();
+              $result = array();
 
-            while($row = $sql->fetchobject('Cardapios'))
-            {
-                $result[] = $row;
-            }
-        } catch (PDOException $e) {
-            throw new Exception("Falha ao acesso no banco de dados", 400);
-        }finally {
-            self::$conn = null;
-        }
-
-        return $result;
-    }
+              while($row = $sql->fetchobject('Cardapios'))
+              {
+                  $result[] = $row;
+              }
+          } catch (PDOException $e) {
+              throw new Exception("Falha ao acesso no banco de dados", 400);
+          }finally {
+              self::$conn = null;
+          }
+          return $result;
+      }
 }
-
-
- ?>
