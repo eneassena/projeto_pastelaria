@@ -39,7 +39,7 @@ class carrinhoController extends Controller
 			$this->carrinho_dados['bebidas'] = $this->conexaoCar->consultaBebidas();
 			$this->carrinho_dados['registro_pedido'] = $this->conexaoCar->busca_pedido_feito();
 			$this->carregarTemplate('ver_pedido', $this->carrinho_dados, "Pastelaria - Pedido");
-		} catch(Eception $erro) {
+		} catch(Exception $erro) {
 
 		}  finally {
             Cardapios::$conn = null;
@@ -55,29 +55,29 @@ class carrinhoController extends Controller
 		// calculando o valor total dos pasteis
 		if( isset($_SESSION['carrinho_pastel']) && count($_SESSION['carrinho_pastel']) > 1 )
 		{
-			foreach($_SESSION['carrinho_pastel'] as $chave => $quantidade):
-				foreach($this->carrinho_dados['cardapio_pastel'] as $field => $value):
-					if($chave == $value->id_cardapio):
+			foreach($_SESSION['carrinho_pastel'] as $chave => $quantidade) {
+
+				foreach($this->carrinho_dados['cardapio_pastel'] as $field => $value){
+					if($chave == $value->id_cardapio) {
 						$total_pastel += $value->valor_unidade * $quantidade;
-					endif;
-				endforeach;
-			endforeach; 
+					}
+				}
+			}
 
 		}  elseif(isset($_SESSION['carrinho_pastel']) && count($_SESSION['carrinho_pastel']) > 0 ) 
 		{
-			foreach($_SESSION['carrinho_pastel'] as $chave => $quantidade):
+			foreach($_SESSION['carrinho_pastel'] as $chave => $quantidade){
 				if($quantidade >= 2){
-					foreach($this->carrinho_dados['cardapio_pastel'] as $field => $value):
-						if($chave == $value->id_cardapio):
+					foreach($this->carrinho_dados['cardapio_pastel'] as $field => $value) {
+						if($chave == $value->id_cardapio) {
 							$total_pastel += $value->valor_unidade * $quantidade;
-						endif;
-					endforeach;
+						}
+					}
 				} else {
-					 
 					$this->carrinho_dados['messagem_pastel'] = "Para fazer  pedido deve ter no minino 2 pásteis no carrinho!";
 					$this->carregarTemplate('pedido', $this->carrinho_dados, "Pastelaria - Pedido");
 				}
-			endforeach; 
+			}
 		} else 
 		{
 			$this->carrinho_dados['messagem_pastel'] = "Escolha um pastel para finalizar seu pedido!";
@@ -87,18 +87,23 @@ class carrinhoController extends Controller
 		// calculando o valor total das bebidas
 		if(isset($_SESSION['carrinho_bebidas']) && count($_SESSION['carrinho_bebidas']) > 0)
 		{
-			if(isset($_SESSION['carrinho_pastel']) && count($_SESSION['carrinho_pastel']) > 0 ):
-				foreach($_SESSION['carrinho_bebidas'] as $chave => $quantidade):
-					foreach($this->carrinho_dados['bebidas'] as $field => $value):
-						if($chave == $value->id_bebida):
+			if(isset($_SESSION['carrinho_pastel']) && count($_SESSION['carrinho_pastel']) > 0 ) 
+			{
+				foreach($_SESSION['carrinho_bebidas'] as $chave => $quantidade) 
+				{
+					foreach($this->carrinho_dados['bebidas'] as $field => $value) 
+					{
+						if($chave == $value->id_bebida) 
+						{
 							$total_bebida += $value->valor_unidade * $quantidade;
-						endif;
-					endforeach;
-				endforeach;
-			else:
+						}
+					}
+				}
+			} else 
+			{
 				$total_bebida = 0;
 				$total_pastel = $total_bebida;
-			endif;
+			}
 			if(!count($_SESSION['carrinho_bebidas']))
 			{
 				$total_bebida = 0;
@@ -139,7 +144,7 @@ class carrinhoController extends Controller
 					if(isset($_SESSION['cliente']['id'])){
 
 						// captura o id do cliente que esta logado
-						$idcliente = (int)$_SESSION['cliente']['id'];
+						$idcliente = intval($_SESSION['cliente']['id']);
 
 						// insere o pedido do cliente no banco
 						$retorn_id_pedido = $this->conexaoCar->insere_pedido($saldo_final, $this->forma_entrega, $idcliente);

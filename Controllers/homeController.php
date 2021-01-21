@@ -26,7 +26,7 @@ class homeController extends Controller
 		{
 			 
 			$this->dados_home['erro'] =$e->getMessage();
-			$this->carregarTemplate('pagina-erro', $dados_home, "Home");
+			$this->carregarTemplate('pagina-erro', $this->dados_home, "Home");
 			
 		}	
 	}	 

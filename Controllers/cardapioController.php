@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 /**
- * 
+ *
  */
 class cardapioController extends Controller
 {
@@ -14,12 +14,11 @@ class cardapioController extends Controller
 			$objetoCardapio = new Cardapios();
 			$this->cardapio_dados = array();
 			$this->cardapio_dados['cardapio_pastel'] = $objetoCardapio->consultaCardapio();
-			$this->cardapio_dados['bebidas'] = $objetoCardapio->consultaBebidas();		
-			 
-		} catch(Exception $eh) 
+			$this->cardapio_dados['bebidas'] = $objetoCardapio->consultaBebidas();
+
+		} catch(Exception $eh)
 		{
 			$this->cardapio_dados['erro'] = $eh->getMessage();
-			$this->carregarTemplate('pagina-erro', $this->cardapio_dados, "Pastelaria - Error");
 		}  finally {
 			Cardapios::$conn = null;
 		}
@@ -28,8 +27,11 @@ class cardapioController extends Controller
 
 	public function index()
 	{
-		$this->carregarTemplate('cardapio', $this->cardapio_dados, "Pastelaria - Cardapio");
+
+		if(!empty($this->cardapio_dados['cardapio_pastel']) && !empty($this->cardapio_dados['bebidas'])){
+			$this->carregarTemplate('cardapio', $this->cardapio_dados, "Pastelaria - Cardapio");
+		}  
 	}
 }
- 
+
 ?>
