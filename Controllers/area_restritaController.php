@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
- * 
- */ 
+ *
+ */
 class area_restritaController extends Controller
 {
 	public $dados_area_restrita;
@@ -12,19 +12,18 @@ class area_restritaController extends Controller
 		try {
 			$this->dados_area_restrita = array();
 			$this->admin = new Restrita();
-			//$this->admin->cadastra_administrador('Pastelaria Gaucho' ,'pastelariagaucho', 'gauchopastelaria');
 			$this->dados_area_restrita['pastel_restrito'] = $this->admin->consultaCardapio();
 			$this->dados_area_restrita['bebidas_restrita'] = $this->admin->consultaBebidas();
 			$this->dados_area_restrita['pedido_restrita'] = $this->admin->consulta_pedido_edit();
 		} catch (Exception $e) {
 			$this->dados_area_restrita['erro'] = $e->getMessage();
-			$this->carregarTemplate('pagina-erro', $this->dados_area_restrita, "Área Restrita - Error");				
+			$this->carregarTemplate('pagina-erro', $this->dados_area_restrita, "Área Restrita - Error");
 		} finally {
 			Restrita::$conn = null;
 		}
-		
+
 	}
- 
+
 	public function index()
 	{
 		try {
@@ -39,12 +38,12 @@ class area_restritaController extends Controller
 				$this->dados_area_restrita['bebidas_restrita'] = $this->admin->consultaBebidas();
 				$this->dados_area_restrita['pedido_restrita'] = $this->admin->consulta_pedido_edit();
 				$this->carregarTemplate('area_restrita_admin/area_restrita', $this->dados_area_restrita, "Área Restrita");
-			} else 
+			} else
 			{
 				$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
 			}
-  
-		} catch (Exception $e) 
+
+		} catch (Exception $e)
 		{
 			$this->dados_area_restrita['erro'] = $e->getMessage();
 			$this->carregarTemplate('pagina-erro', $this->dados_area_restrita, "Área Restrita - Error");
@@ -53,23 +52,23 @@ class area_restritaController extends Controller
 		}
 	}
 
-	
+
 
 	public function editar_pedido($idpedido){
-		
+
 		if(isset($_SESSION['admin']))
 		{ // verifica se tem pedido na tabela pedido e envia para view de edição
 			if(isset($this->dados_area_restrita['pedido_restrita'])){
 				foreach($this->dados_area_restrita['pedido_restrita'] as $value){
-				 
+
 					if($value->id_pedido == $idpedido){
-						
+
 						// dados do pastel que o cliente pediu
 						$this->dados_area_restrita['dados_pastel'] = $this->admin->consulta_pastel_pedido($idpedido);
-						
+
 						// dados da bebidas que o cliente pediu
 						$this->dados_area_restrita['dados_bebida'] = $this->admin->consulta_bebidas_pedido($idpedido);
-						
+
 						// dados do cliente que realizou um pedido
 						$this->dados_area_restrita['dados_cliente'] = $this->admin->consulta_cliente_pedido($idpedido);
 
@@ -86,42 +85,42 @@ class area_restritaController extends Controller
 							$this->carregarTemplate('area_restrita_admin/area_restrita', $this->dados_area_restrita, 'Área Restrita');
 						}
 					}
-				} 
-				   
+				}
+
 			} else {
 
 				$this->dados_area_restrita['messagem_area_restrita'] = "este pedido não existe ou ja foi deletado";
 				$this->carregarTemplate('area_restrita_admin/area_restrita', $this->dados_area_restrita, 'Área Restrita');
 			}
-			
-		} else 
+
+		} else
 		{
 			$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
 		}
 	}
 
 	public function update_pedido($idpedido=0, $f=null){
-		
+
 		try {
-			
+
 			if(isset($_SESSION['admin']))
 			{
 				if(isset($_POST['btn_pedido']))
 				{
-					if(isset($_POST['cTaxa_Entrega']) && !empty($_POST['cTaxa_Entrega']) && 
+					if(isset($_POST['cTaxa_Entrega']) && !empty($_POST['cTaxa_Entrega']) &&
 					isset($_POST['cSituacao']) && !empty($_POST['cSituacao']))
 					{
 						$idpedido = $idpedido;
 						$taxa_entrega = htmlspecialchars($_POST['cTaxa_Entrega']);
 						$situacao = htmlspecialchars($_POST['cSituacao']) ;
-						
+
 						// verifica se os dados possui valor para atualizar a tabela pedido
 						if($taxa_entrega && $situacao && $idpedido)	{
 							$this->dados_area_restrita['messagem_area_restrita'] = "pedido editado com sucesso.";
 							$this->admin->edicao_pedido_final($idpedido, $situacao, $taxa_entrega);
 							 $this->index();
 							//header("location: ?pag=area_restrita/index");
-							
+
 						} else {
 							$this->index();
 						}
@@ -129,8 +128,8 @@ class area_restritaController extends Controller
 				} else {// se o valor do formulario de edição de pedido nao for alterado emite messagem
 					$this->dados_area_restrita['messagem_area_restrita']="Não houver alteração no pedido do cliente";
 					$this->index();
-				}	
-			} else 
+				}
+			} else
 			{
 				$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
 			}
@@ -140,11 +139,11 @@ class area_restritaController extends Controller
 		}
 
    }
-   
-	
+
+
 	// faz login do administrador
 	public function acesso_admin() {
-			
+
 		if(isset($_SESSION['admin'])){
 			$this->index();
 		} else{
@@ -160,27 +159,27 @@ class area_restritaController extends Controller
 					{ // as informações do admin foi encontrada
 						$_SESSION['admin'] = $result;
 						$this->index();
-					} else 
+					} else
 					{ // o admin inseriu dados incorreto
 						$this->dados_area_restrita['messagem_erro_login'] = "dados incorreto!";
 						$this->index();
 					}
-	
+
 				} catch(Exception $erro)
 				{
 					$this->dados_area_restrita['messagem_erro_login'] = $erro->getMessage();
 				}
-	
+
 			} else {
 				$this->carregarTemplate('area_restrita_admin/login_admin', $this->dados_area_restrita, "Painel de Controle");
-			}			
-		} 
+			}
+		}
 	}
 
 	// método de adição de pastéis
 	public function add_pastel()
 	{
-	 
+
 		try{
 
 			if(isset($_SESSION['admin']))
@@ -198,15 +197,15 @@ class area_restritaController extends Controller
 					$this->dados_area_restrita['messagem_area_restrita'] = "Pastel ". $nome. " editado!";
 					$this->admin->cadastrar_pastel($nome, $ingred, $preco);
 				}
-				$this->carregarTemplate('area_restrita_admin/area_restrita', $this->dados_area_restrita, "Área Restrita"); 
-			} else 
+				$this->carregarTemplate('area_restrita_admin/area_restrita', $this->dados_area_restrita, "Área Restrita");
+			} else
 			{
 				$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
 			}
 		} catch(Exception $erro) {
 			echo $erro->getMessage();
 		}
-		
+
 	}
 
 	// adiconar bebida novas
@@ -236,8 +235,8 @@ class area_restritaController extends Controller
 						$this->admin->cadastrar_bebidas($tipo_bebida, $sabor, $fruta, $qtd_ml, $valor_unid);
 					}
 					header("location: ?pag=area_restrita/index");
-				} 
-			} else 
+				}
+			} else
 			{
 				$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
 			}
@@ -258,9 +257,9 @@ class area_restritaController extends Controller
 			$this->dados_area_restrita['messagem_area_restrita'] = $erro->getMessage();
 		}
 
-		
+
 	}
-	
+
 	public function excluir_pastel($idpastel=null){
 		if((int)$idpastel){
 			$this->dados_area_restrita['messagem_area_restrita'] = $this->admin->detela_cardapio_pastel($idpastel);
@@ -269,7 +268,7 @@ class area_restritaController extends Controller
 	}
 
 	public function finalizar_edicao_pastel($idcardapio){
-		
+
 		if(isset($_POST['btn_pedido'])){
 			if(isset($_POST['pSabor']) && !empty($_POST['pSabor'])) {
 				$sabor = htmlspecialchars($_POST['pSabor']);
@@ -283,9 +282,9 @@ class area_restritaController extends Controller
 			if($sabor && $ingrediente && $valor){
 				$this->dados_area_restrita['messagem_area_restrita'] = $this->admin->cad_cardapio_pastel($idcardapio, $sabor, $ingrediente, $valor);
 				$this->carregarTemplate('area_restrita_admin/area_restrita', $this->dados_area_restrita, "Área Restrita");
-			} 
-			$this->index();	
-			
+			}
+			$this->index();
+
 		} else {
 			$this->index();
 		}
@@ -296,19 +295,19 @@ class area_restritaController extends Controller
 
 		$this->dados_area_restrita['dados_edicao_bebida'] = $this->admin->consulta_bebida_por_id($idbebida);
 		$this->carregarTemplate('area_restrita_admin/add_bebidas', $this->dados_area_restrita, "Área Restrita - Editar Bebida");
-		
+
 	}
 
 	public function excluir_bebida($idbebida=null){
 		if(isset($_SESSION['admin']))
 		{// update dados
-		
+
 			if((int)$idbebida){
 				$this->dados_area_restrita['messagem_area_restrita'] = $this->admin->detela_bebida($idbebida);
 				$this->index();
 			}
-		
-		} else 
+
+		} else
 		{
 			$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
 		}
@@ -317,7 +316,7 @@ class area_restritaController extends Controller
 	public function finalizar_edicao_bebidas($idbebida){
 		if(isset($_SESSION['admin']))
 		{// update dados
-		
+
 			if(isset($_POST['tBebida'])){
 				$tipo = null; $sabor = null; $fruto = null; $quantidade_ml = null; $valor_unidade = null;
 
@@ -338,12 +337,12 @@ class area_restritaController extends Controller
 				}
 				$this->dados_area_restrita['messagem_area_restrita'] = $this->admin->cad_bebida($idbebida, $tipo, $sabor, $fruto, $quantidade_ml, $valor_unidade);
 				header("location: ?pag=area_restrita/index");
-				
+
 			} else {
 				$this->index();
 			}
-		
-		} else 
+
+		} else
 		{
 			$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
 		}
@@ -353,14 +352,14 @@ class area_restritaController extends Controller
 	public function delete_pedido_retirada($id){
 		if(isset($_SESSION['admin']))
 		{// update dados
-		
+
 	 		$this->admin->deleta_pedido($id);
 			$this->index();
-		
-		} else 
+
+		} else
 		{
 			$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
-		}		
+		}
 
 	}
 
@@ -368,11 +367,11 @@ class area_restritaController extends Controller
 		try {
 			if(isset($_SESSION['admin']))
 			{// update dados
-			
+
 				$this->admin->deleteAll_pedidos($idpedido);
 				$this->index();
-			
-			} else 
+
+			} else
 			{
 				$this->carregarTemplate('home', $this->dados_area_restrita, "Pastelaria - Home");
 			}
