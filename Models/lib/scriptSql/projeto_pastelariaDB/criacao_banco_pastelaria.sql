@@ -28,8 +28,14 @@ CREATE TABLE `endereco_cliente` (
   `pk_cliente_endereco` int(11) DEFAULT NULL,
   KEY `pk_endereco_cliente` (`pk_endereco_cliente`),
   KEY `pk_cliente_endereco` (`pk_cliente_endereco`),
-  CONSTRAINT `endereco_cliente_ibfk_1` FOREIGN KEY (`pk_endereco_cliente`) REFERENCES `cliente` (`id_cliente`),
-  CONSTRAINT `endereco_cliente_ibfk_2` FOREIGN KEY (`pk_cliente_endereco`) REFERENCES `endereco` (`id_endereco`)
+  CONSTRAINT `endereco_cliente_ibfk_1` 
+  FOREIGN KEY (`pk_endereco_cliente`) 
+  REFERENCES `cliente` (`id_cliente`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `endereco_cliente_ibfk_2` 
+  FOREIGN KEY (`pk_cliente_endereco`) 
+  REFERENCES `endereco` (`id_endereco`)
+  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 4: pedido
@@ -43,7 +49,10 @@ CREATE TABLE `endereco_cliente` (
   `pk_cliente` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pedido`),
   KEY `pk_cliente` (`pk_cliente`),
-  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`pk_cliente`) REFERENCES `cliente` (`id_cliente`)
+  CONSTRAINT `pedido_ibfk_1` 
+  FOREIGN KEY (`pk_cliente`) 
+  REFERENCES `cliente` (`id_cliente`)
+  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 -- 5: bebidas
@@ -64,8 +73,14 @@ CREATE TABLE `pedido_bebida` (
   `pk_bebida_pedido` int(11) NOT NULL,
   KEY `pk_pedido_bebida` (`pk_pedido_bebida`),
   KEY `pk_bebida_pedido` (`pk_bebida_pedido`),
-  CONSTRAINT `pedido_bebida_ibfk_1` FOREIGN KEY (`pk_pedido_bebida`) REFERENCES `bebidas` (`id_bebida`),
-  CONSTRAINT `pedido_bebida_ibfk_2` FOREIGN KEY (`pk_bebida_pedido`) REFERENCES `pedido` (`id_pedido`)
+  CONSTRAINT `pedido_bebida_ibfk_1` 
+  FOREIGN KEY (`pk_pedido_bebida`) 
+  REFERENCES `bebidas` (`id_bebida`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `pedido_bebida_ibfk_2` 
+  FOREIGN KEY (`pk_bebida_pedido`) 
+  REFERENCES `pedido` (`id_pedido`)
+  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 7: forma_pagamento
@@ -76,7 +91,10 @@ CREATE TABLE `pedido_bebida` (
   `pk_tbpedido` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_forma_pagamento`),
   KEY `pk_tbpedido` (`pk_tbpedido`),
-  CONSTRAINT `forma_pagamento_ibfk_1` FOREIGN KEY (`pk_tbpedido`) REFERENCES `pedido` (`id_pedido`)
+  CONSTRAINT `forma_pagamento_ibfk_1` 
+  FOREIGN KEY (`pk_tbpedido`) 
+  REFERENCES `pedido` (`id_pedido`)
+  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
  
 -- 8: cardapio_pastel 
@@ -98,7 +116,10 @@ CREATE TABLE `pedido_bebida` (
   `pk_cardapio_pastel` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pastel`),
   KEY `pk_cardapio_pastel` (`pk_cardapio_pastel`),
-  CONSTRAINT `pastel_ibfk_1` FOREIGN KEY (`pk_cardapio_pastel`) REFERENCES `cardapio_pastel` (`id_cardapio_card`)
+  CONSTRAINT `pastel_ibfk_1` 
+  FOREIGN KEY (`pk_cardapio_pastel`) 
+  REFERENCES `cardapio_pastel` (`id_cardapio_card`)
+  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 10: pedido_pastel
@@ -107,8 +128,14 @@ CREATE TABLE `pedido_pastel` (
   `pk_pastel_pedido` int(11) DEFAULT NULL,
   KEY `pk_pedido_pastel` (`pk_pedido_pastel`),
   KEY `pk_pastel_pedido` (`pk_pastel_pedido`),
-  CONSTRAINT `pedido_pastel_ibfk_1` FOREIGN KEY (`pk_pedido_pastel`) REFERENCES `pastel` (`id_pastel`),
-  CONSTRAINT `pedido_pastel_ibfk_2` FOREIGN KEY (`pk_pastel_pedido`) REFERENCES `pedido` (`id_pedido`)
+  CONSTRAINT `pedido_pastel_ibfk_1` 
+  FOREIGN KEY (`pk_pedido_pastel`) 
+  REFERENCES `pastel` (`id_pastel`)
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `pedido_pastel_ibfk_2` 
+  FOREIGN KEY (`pk_pastel_pedido`) 
+  REFERENCES `pedido` (`id_pedido`)
+  ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 11: localizacao
@@ -132,7 +159,7 @@ CREATE TABLE `localizacao` (
 
   
 -- inserts na table cardapio_pastel
-insert  into `cardapio_pastel`values 
+INSERT INTO `cardapio_pastel` VALUES
 (DEFAULT, 'Pastel de Carne','',7.00),
 (DEFAULT, 'Pastel de Frango','',7.00),
 (DEFAULT, 'Pastel de Salada','Calabresa, Queijo mussarela, Batata, Cenoura',7.00),
@@ -185,7 +212,7 @@ insert  into `cardapio_pastel`values
 
 
 -- insert table bebidas
-insert  into `bebidas` values 
+INSERT INTO `bebidas` VALUES
 (DEFAULT, 'Abacaxi',NULL,'Polpa','300ML',5.00),
 (DEFAULT, 'Abacaxi com leite','','Polpa','300ML',5.00),
 (DEFAULT, 'Acerola','','Polpa','300ML',4.00),
@@ -216,7 +243,7 @@ insert  into `bebidas` values
 
 
 -- insert bairros
-insert into localizacao values
+INSERT INTO localizacao VALUES
 (DEFAULT, 'Boca do Rio', 0),
 (DEFAULT, 'Imbui', 0),
 (DEFAULT, 'Pituba', 0),

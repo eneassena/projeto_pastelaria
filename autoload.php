@@ -1,4 +1,4 @@
-<?php 
+<?php
 // gerencia chamada de arquivos mains
 spl_autoload_register(function($nome_arquivo)
 {

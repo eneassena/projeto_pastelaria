@@ -139,8 +139,6 @@ class Cardapios {
             $query_endereco_cliente->bindValue(':bairro', $bairro_cli);
             $query_endereco_cliente->bindValue(':idCli', $id_cli);
             $query_endereco_cliente->execute();
-
-
         } catch(Exception $erro){
             throw new Exception("Falha na inserçao da tabela insere_endereco_cli", 400);
         } finally {
