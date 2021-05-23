@@ -30,6 +30,7 @@ class area_restritaController extends Controller
 				header('location: ?pag=cadastro/logout');
 			}
 
+
 			if(isset($_SESSION['admin']))
 			{// update dados
 				$this->admin = new Restrita();
@@ -144,7 +145,7 @@ class area_restritaController extends Controller
 	public function acesso_admin() {
 
 		if(isset($_SESSION['admin'])){
-			$this->index();
+			header('location: ?pag=cadastro/logout');
 		} else{
 			if(isset($_POST['adLogin']) && !empty($_POST['adLogin']) && isset($_POST['adPass']) && !empty($_POST['adPass']) )
 			{

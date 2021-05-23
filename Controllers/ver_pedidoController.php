@@ -35,7 +35,7 @@ class ver_pedidoController extends Controller
 		} catch (Exception $e)
 		{
 			$this->dados_pedido['erro'] = $e->getMessage();
-			$this->carregarTemplate('pagina-erro', $dados_pedido, "Erro");
+			$this->carregarTemplate('ver_pedido', $this->dados_pedido, "Pastelaria - Ver Pedido");
 		} finally
 		{
 			Cardapios::$conn = null;

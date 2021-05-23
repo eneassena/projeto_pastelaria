@@ -5,7 +5,7 @@
  */
 class cardapioController extends Controller
 {
-	public $cardapio_dados;
+	public $cardapio_dados = [];
 
 	public function __construct()
 	{
@@ -30,7 +30,9 @@ class cardapioController extends Controller
 
 		if(!empty($this->cardapio_dados['cardapio_pastel']) && !empty($this->cardapio_dados['bebidas'])){
 			$this->carregarTemplate('cardapio', $this->cardapio_dados, "Pastelaria - Cardapio");
-		}  
+		} else {
+			$this->carregarTemplate('cardapio', $this->cardapio_dados, "Pastelaria - Cardapio");
+		}
 	}
 }
 

@@ -12,6 +12,7 @@ class carrinhoController extends Controller
 	private $forma_pagamento = null;
 	private $forma_entrega   = null;
 	public $carrinho_dados;
+	public $message;
 
 	public function __construct()
 	{
@@ -24,7 +25,7 @@ class carrinhoController extends Controller
 			$this->carrinho_dados['registro_pedido'] = $this->conexaoCar->busca_pedido_feito();
 		} catch(Exception $eh)
 		{
-			$this->index();
+			$this->message = $eh->getMessage();
 		} finally {
     	Cardapios::$conn = null;
     }
@@ -34,16 +35,16 @@ class carrinhoController extends Controller
 	public function index()
 	{
 		try {
-			$this->conexaoCar = new Cardapios();
+
 			$this->carrinho_dados['cardapio_pastel'] = $this->conexaoCar->consultaCardapio();
 			$this->carrinho_dados['bebidas'] = $this->conexaoCar->consultaBebidas();
 			$this->carrinho_dados['registro_pedido'] = $this->conexaoCar->busca_pedido_feito();
 			$this->carregarTemplate('ver_pedido', $this->carrinho_dados, "Pastelaria - Pedido");
 		} catch(Exception $erro) {
-
+			$this->carregarTemplate('ver_pedido', $this->carrinho_dados, "Pastelaria - Pedido");
 		}  finally {
-            Cardapios::$conn = null;
-        }
+    	Cardapios::$conn = null;
+    }
 
 	}
 
