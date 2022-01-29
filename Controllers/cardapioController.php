@@ -16,6 +16,8 @@ class cardapioController extends Controller
 			$this->cardapio_dados['cardapio_pastel'] = $objetoCardapio->consultaCardapio();
 			$this->cardapio_dados['bebidas'] = $objetoCardapio->consultaBebidas();
 
+			
+
 		} catch(Exception $eh)
 		{
 			$this->cardapio_dados['erro'] = $eh->getMessage();

@@ -21,7 +21,8 @@ class Cardapios {
         self::$conn = null;
     }
 
-    public function buscar_cliente_por_id($idCliente){
+    public function buscar_cliente_por_id($idCliente)
+    {
         try {
             $sql = "CALL PROC_BUSCAR_POR_ID(:id);";
             $sql = Cardapios::getConnection()->prepare($sql);

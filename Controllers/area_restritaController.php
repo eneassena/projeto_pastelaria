@@ -25,6 +25,7 @@ class area_restritaController extends Controller
 
 	public function index()
 	{
+		
 		try {
 			if(isset($_SESSION['cliente'])){// se alguma sessão cliente tentar acessar sera deslogada
 				header('location: ?pag=cadastro/logout');
@@ -51,8 +52,6 @@ class area_restritaController extends Controller
 			Restrita::$conn = null;
 		}
 	}
-
-
 
 	public function editar_pedido($idpedido){
 
@@ -140,12 +139,12 @@ class area_restritaController extends Controller
 
    }
 
-
 	// faz login do administrador
 	public function acesso_admin() {
 
 		if(isset($_SESSION['admin'])){
 			header('location: ?pag=cadastro/logout');
+			
 		} else{
 			if(isset($_POST['adLogin']) && !empty($_POST['adLogin']) && isset($_POST['adPass']) && !empty($_POST['adPass']) )
 			{
@@ -174,6 +173,7 @@ class area_restritaController extends Controller
 				$this->carregarTemplate('area_restrita_admin/login_admin', $this->dados_area_restrita, "Painel de Controle");
 			}
 		}
+		echo '...';
 	}
 
 	// método de adição de pastéis

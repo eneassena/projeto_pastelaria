@@ -1,0 +1,60 @@
+metodos de ações na camada de Models do site pastelaria
+
+model Restrita
+
+- public static function conexao()
+- public function cadastrar_pastel($nome, $ingrediente, $valor)
+- public function cadastrar_bebidas($tipo_bebida, $sabor, $fruto, $qtd_ml, $valor)
+- public function consulta_pastel_pedido($idcliente)
+- public function consulta_bebidas_pedido($idcliente)
+- public function consulta_cliente_pedido($idcliente)
+- public function consulta_pedido_done($idpedido)
+- public function consulta_pedido_edit()
+- public function edicao_pedido_final($idpedido, $situacao, $taxa_entrega)
+- public function acesso_admin($login, $senha)
+- public function consultaCardapio()
+- public function consultaBebidas()
+- public function cad_bebida($id, $tipo, $sabor, $fruto, $qtd_ml, $valor)
+- public function cadastra_administrador($nome, $login, $senha)
+- public function detela_cardapio_pastel($id)
+- public function deleteAll_pedidos()
+
+
+Model Usuario
+- public static function conexao()
+- public function acesso_cliente($login, $senha)
+- public function cadastro_cliente($nome, $telefone, $login, $senha, $complemento, $numero, $bairro)
+- protected function insere_clientes($nome, $tel, $log, $pass)
+- protected function insere_endereco($complemento, $numero, $bairro)
+
+
+Model Cardapios
+- public static function getConnection()
+- public static function close()
+- public function buscar_cliente_por_id($idCliente)
+- public function consultaCardapio()
+- public function consultaBebidas()
+- public function insere_clientes($nome, $telefone)
+- public function insere_endereco_cli($complemento, $numero, $bairro, $idCliente)
+- public function insere_pastel($sabor, $valor, $qtd, $pk_cardapio)
+- public function insere_pedido($total, $forma_entrega, $pk_cliente)
+- public function insere_pedido_pastel($pk_pastel, $pk_pedido)
+- public function insere_pedido_bebidas($qtd, $pk_bebida, $pk_pedido)
+- public function insere_forma_pagamento($cart, $saldo, $pk_pedido)
+- public function busca_pedido_feito()
+- public function busca_bairro_entrega()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

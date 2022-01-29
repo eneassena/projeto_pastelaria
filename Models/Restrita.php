@@ -484,7 +484,8 @@ public function detela_cardapio_pastel($id)
 }
 
 // este metodo exclui todo os pedido existente na tabela
-public function deleteAll_pedidos(){
+public function deleteAll_pedidos()
+{
 
   
   try { 

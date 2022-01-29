@@ -1,8 +1,6 @@
 
  <!-- formulario exibição dos pedidos feito -->
- <div class="container-fluid">
-
-
+ <div class="container">
 
      <div class="row justify-content-center">
          <div class="col-sm-12 col-md-10 mt-5 table-responsive ">

@@ -1,5 +1,5 @@
-create DATABASE pastelaria_gaucho;
-USE pastelaria_gaucho;
+create DATABASE projeto_pastelaria_v1;
+USE projeto_pastelaria_v1;
  
 -- 1: cliente com cadastrado
 CREATE TABLE `cliente` (
@@ -24,17 +24,11 @@ CREATE TABLE `endereco` (
 
 -- 3: endereco_cliente
 CREATE TABLE `endereco_cliente` (
-  `pk_endereco_cliente` int(11) DEFAULT NULL,
-  `pk_cliente_endereco` int(11) DEFAULT NULL,
-  KEY `pk_endereco_cliente` (`pk_endereco_cliente`),
-  KEY `pk_cliente_endereco` (`pk_cliente_endereco`),
-  CONSTRAINT `endereco_cliente_ibfk_1` 
-  FOREIGN KEY (`pk_endereco_cliente`) 
-  REFERENCES `cliente` (`id_cliente`)
+  `fk1_endereco_id` int(11) DEFAULT NULL,
+  `fk1_cliente_id` int(11) DEFAULT NULL,
+  CONSTRAINT `fk1_endereco_id` FOREIGN KEY (`fk1_endereco_id`) REFERENCES `cliente` (`id_cliente`)
   ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `endereco_cliente_ibfk_2` 
-  FOREIGN KEY (`pk_cliente_endereco`) 
-  REFERENCES `endereco` (`id_endereco`)
+  CONSTRAINT `fk1_cliente_id` FOREIGN KEY (`fk1_cliente_id`) REFERENCES `endereco` (`id_endereco`)
   ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -46,14 +40,13 @@ CREATE TABLE `endereco_cliente` (
   `situacao` varchar(45) DEFAULT 'em andamento',
   `data_pedido` date DEFAULT NULL,
   `taxa_entrega` decimal(10,2) DEFAULT 0.00,
-  `pk_cliente` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_pedido`),
-  KEY `pk_cliente` (`pk_cliente`),
-  CONSTRAINT `pedido_ibfk_1` 
-  FOREIGN KEY (`pk_cliente`) 
-  REFERENCES `cliente` (`id_cliente`)
+  `fk2_cliente_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_pedido`), 
+  CONSTRAINT `fk2_cliente_id` FOREIGN KEY (`fk2_cliente_id`) REFERENCES `cliente` (`id_cliente`)
   ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
+
 
 -- 5: bebidas
 CREATE TABLE `bebidas` (
@@ -68,18 +61,12 @@ CREATE TABLE `bebidas` (
 
 -- 6: pedido_bebida
 CREATE TABLE `pedido_bebida` (
-  `qtd_bebida` int(11) DEFAULT NULL,
-  `pk_pedido_bebida` int(11) NOT NULL,
-  `pk_bebida_pedido` int(11) NOT NULL,
-  KEY `pk_pedido_bebida` (`pk_pedido_bebida`),
-  KEY `pk_bebida_pedido` (`pk_bebida_pedido`),
-  CONSTRAINT `pedido_bebida_ibfk_1` 
-  FOREIGN KEY (`pk_pedido_bebida`) 
-  REFERENCES `bebidas` (`id_bebida`)
+  `quantidade` int(11) DEFAULT NULL,
+  `fk1_pedido_id` int(11) NOT NULL,
+  `fk1_bebida_id` int(11) NOT NULL,
+  CONSTRAINT `fk1_pedido_id` FOREIGN KEY (`fk1_pedido_id`)  REFERENCES `bebidas` (`id_bebida`)
   ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `pedido_bebida_ibfk_2` 
-  FOREIGN KEY (`pk_bebida_pedido`) 
-  REFERENCES `pedido` (`id_pedido`)
+  CONSTRAINT `fk1_bebida_id` FOREIGN KEY (`fk1_bebida_id`) REFERENCES `pedido` (`id_pedido`)
   ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -88,22 +75,20 @@ CREATE TABLE `pedido_bebida` (
   `id_forma_pagamento` int(11) NOT NULL AUTO_INCREMENT,
   `cartao` varchar(15) DEFAULT NULL,
   `saldo_pagar` decimal(10,2) DEFAULT NULL,
-  `pk_tbpedido` int(11) DEFAULT NULL,
+  `fl2_pedido_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_forma_pagamento`),
-  KEY `pk_tbpedido` (`pk_tbpedido`),
-  CONSTRAINT `forma_pagamento_ibfk_1` 
-  FOREIGN KEY (`pk_tbpedido`) 
-  REFERENCES `pedido` (`id_pedido`)
+  
+  CONSTRAINT `fl2_pedido_id` FOREIGN KEY (`fl2_pedido_id`) REFERENCES `pedido` (`id_pedido`)
   ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
  
 -- 8: cardapio_pastel 
  CREATE TABLE `cardapio_pastel` (
-  `id_cardapio_card` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cardapio` int(11) NOT NULL AUTO_INCREMENT,
   `nome_card` varchar(100) DEFAULT NULL,
   `ingrediente_card` text DEFAULT NULL,
   `valor_unidade_card` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`id_cardapio_card`)
+  PRIMARY KEY (`id_cardapio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -113,28 +98,21 @@ CREATE TABLE `pedido_bebida` (
   `sabor_pastel` varchar(100) DEFAULT NULL,
   `valor_unidade` decimal(10,2) DEFAULT NULL,
   `qtd_pastel` int(11) DEFAULT NULL,
-  `pk_cardapio_pastel` int(11) DEFAULT NULL,
+  `fk1_cardapio_pastel_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pastel`),
-  KEY `pk_cardapio_pastel` (`pk_cardapio_pastel`),
-  CONSTRAINT `pastel_ibfk_1` 
-  FOREIGN KEY (`pk_cardapio_pastel`) 
-  REFERENCES `cardapio_pastel` (`id_cardapio_card`)
+  CONSTRAINT `fk1_cardapio_pastel_id` 
+  FOREIGN KEY (`fk1_cardapio_pastel_id`) 
+  REFERENCES `cardapio_pastel` (`id_cardapio`)
   ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 10: pedido_pastel
 CREATE TABLE `pedido_pastel` (
-  `pk_pedido_pastel` int(11) DEFAULT NULL,
-  `pk_pastel_pedido` int(11) DEFAULT NULL,
-  KEY `pk_pedido_pastel` (`pk_pedido_pastel`),
-  KEY `pk_pastel_pedido` (`pk_pastel_pedido`),
-  CONSTRAINT `pedido_pastel_ibfk_1` 
-  FOREIGN KEY (`pk_pedido_pastel`) 
-  REFERENCES `pastel` (`id_pastel`)
+  `fk3_pedido_id` int(11) DEFAULT NULL,
+  `fk2_cardapio_pastel_id` int(11) DEFAULT NULL,
+  CONSTRAINT `fk3_pedido_id` FOREIGN KEY (`fk3_pedido_id`) REFERENCES `pastel` (`id_pastel`)
   ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `pedido_pastel_ibfk_2` 
-  FOREIGN KEY (`pk_pastel_pedido`) 
-  REFERENCES `pedido` (`id_pedido`)
+  CONSTRAINT `fk2_cardapio_pastel_id` FOREIGN KEY (`fk2_cardapio_pastel_id`) REFERENCES `pedido` (`id_pedido`)
   ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -157,11 +135,11 @@ CREATE TABLE `localizacao` (
   PRIMARY KEY (`id_admin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-  
+
 -- inserts na table cardapio_pastel
 INSERT INTO `cardapio_pastel` VALUES
-(DEFAULT, 'Pastel de Carne','',7.00),
 (DEFAULT, 'Pastel de Frango','',7.00),
+(DEFAULT, 'Pastel de Carne','',7.00),
 (DEFAULT, 'Pastel de Salada','Calabresa, Queijo mussarela, Batata, Cenoura',7.00),
 (DEFAULT, 'Pastel Pizza','Queijo mussarela, Tomate, Orégano',7.00),
 (DEFAULT, 'Pastel de Presunto','',7.00),
@@ -247,356 +225,9 @@ INSERT INTO localizacao VALUES
 (DEFAULT, 'Boca do Rio', 0),
 (DEFAULT, 'Imbui', 0),
 (DEFAULT, 'Pituba', 0),
-(DEFAULT, 'Pantamares', 0),
-(DEFAULT, 'Costa Azul', 0);
+(DEFAULT, 'Pantamares', 0);
 
 -- PROCEDURES
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_BUSCAR_BEBIDAS_PEDIDO`( in id_consulta int )
-BEGIN
-	SELECT `bebidas`.`id_bebida`, `bebidas`.`tipo_bebida`,`bebidas`.`quantidade_ml`, `bebidas`.`valor_unidade` 
-	FROM pedido_bebida
-	JOIN bebidas ON pedido_bebida.pk_pedido_bebida = bebidas.id_bebida
-	JOIN pedido ON pedido_bebida.pk_bebida_pedido = pedido.id_pedido
-	WHERE pedido.id_pedido = id_consulta	
-	ORDER BY pedido.id_pedido ASC;
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_BUSCAR_CLIENTE`;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_BUSCAR_CLIENTE`(in id_consulta int )
-BEGIN
-		SELECT cliente.nome_cli, cliente.telefone, endereco.complemento_end, endereco.numero_end , endereco.bairro
-		FROM pedido
-		JOIN cliente ON pedido.pk_cliente = cliente.id_cliente
-		join endereco_cliente on cliente.id_cliente = endereco_cliente.pk_endereco_cliente
-		join endereco on endereco_cliente.pk_cliente_endereco = endereco.id_endereco
-		WHERE pedido.id_pedido = id_consulta;
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_BUSCAR_PASTEL_PEDIDO` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_BUSCAR_PASTEL_PEDIDO`(
-	IN id_consulta int
-    )
-BEGIN
-	SELECT pastel.sabor_pastel, pastel.valor_unidade, pastel.qtd_pastel, pastel.valor_unidade * pastel.qtd_pastel 'total'
-	 FROM pedido_pastel
-	JOIN pastel ON pedido_pastel.pk_pedido_pastel = pastel.id_pastel
-	JOIN pedido ON pedido_pastel.pk_pastel_pedido = pedido.id_pedido
-	WHERE pedido.id_pedido = id_consulta
-	order by pastel.sabor_pastel asc;
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_BUSCAR_POR_ID` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_BUSCAR_POR_ID`(
-IN id_consulta INT
-)
-BEGIN 
-	SELECT cliente.nome_cli, cliente.telefone, endereco.complemento_end,  endereco.numero_end, endereco.bairro
-	FROM endereco_cliente AS edc
-	JOIN cliente ON edc.pk_endereco_cliente = cliente.id_cliente
-	JOIN endereco ON edc.pk_cliente_endereco = endereco.id_endereco
-	WHERE cliente.id_cliente = id_consulta;
-END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_CADASTRAR_BAIRROS`;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_CADASTRAR_BAIRROS`(
-	IN nome_bairro VARCHAR(255),
-	IN taxa_entrega  VARCHAR(255)
-  )
-BEGIN
-	INSERT INTO localizacao(nome_bairro, taxa_entrega)
-	VALUES(nome_bairro, taxa_entrega);
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_CADASTRAR_BEBIDA` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_CADASTRAR_BEBIDA`(
-	in `tipo_bebida` varchar(255),
-	in `sabor` varchar(255), 
-	in `fruto` VARCHAR(255),
-	in `quantidade_ml` VARCHAR(10),
-	in `valor_unidade` decimal(10,2)
-    )
-BEGIN
-	insert into `bebidas`(`tipo_bebida`,`sabor`,`fruto`,`quantidade_ml`,`valor_unidade`)
-	values(`tipo_bebida`,`sabor`,`fruto`,`quantidade_ml`,`valor_unidade`);
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_CADASTRA_CLIENTE_TESTE` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_CADASTRA_CLIENTE_TESTE`(
-	IN nome VARCHAR(255),
-	IN phone VARCHAR(255)
-)
-BEGIN
-	set @nome = nome;
-    set @phone = phone;
-	INSERT INTO cliente (nome_cli, telefone, perfil_cli) VALUES (@nome, @phone, DEFAULT);
-    select last_insert_id() AS 'id_cliente';
-END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_CADASTRA_PASTEL` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_CADASTRA_PASTEL`(
-	in `nome_card` varchar(255),
-	in `ingrediente_card` VARCHAR(255),
-	in `valor_unidade_card` decimal(10,2)
-    )
-BEGIN
-	INSERT INTO cardapio_pastel(`nome_card`,`ingrediente_card`,`valor_unidade_card`)
-	VALUES(`nome_card`,`ingrediente_card`,`valor_unidade_card`);
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_CADAST_CLI_PEDIDO`;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_CADAST_CLI_PEDIDO`(
-	IN nome_cli VARCHAR(255), IN telefone VARCHAR(255)
-    )
-BEGIN
-	INSERT INTO cliente(nome_cli, telefone) VALUES (nome_cli, telefone);
-	SET @idcliente = LAST_INSERT_ID();
-	SELECT @idcliente;
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_CONSULTA_PEDIDO_ID` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_CONSULTA_PEDIDO_ID`(
-	IN id_consulta int
-    )
-BEGIN
-	SELECT pedido.id_pedido, pedido.valor_total, pedido.forma_entrega, pedido.situacao, pedido.data_pedido, pedido.taxa_entrega, forma_pagamento.`cartao`
-	FROM pedido
-	JOIN forma_pagamento ON pedido.id_pedido = forma_pagamento.pk_tbpedido
-	WHERE  pedido.id_pedido = id_consulta
-	and pedido.data_pedido = CURDATE() 
-	AND pedido.`situacao` = 'em andamento'
-	AND pedido.valor_total > 0;
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_DEL_BEBIDAS` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_DEL_BEBIDAS`(in id_delete int)
-BEGIN
-	delete from bebidas where id_bebida = id_delete;
-END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_DEL_CARDAPIO_PASTEL` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_DEL_CARDAPIO_PASTEL`( in id_delete int)
-BEGIN
-	DELETE FROM cardapio_pastel WHERE id_cardapio_card = id_delete; 
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_DEL_PEDIDO` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_DEL_PEDIDO`(
-	in id_delete int	
-    )
-BEGIN	
-	DELETE FROM pedido
-	WHERE id_pedido = id_delete and data_pedido = curdate();
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_INSERE_ENDERECO_CLIENTE` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_INSERE_ENDERECO_CLIENTE`(
-	in complemento_end varchar(255),
-	in numero_end varchar(255),
-	in bairro varchar(255),
-    in idCliente int
-)
-BEGIN
-	insert into endereco values (DEFAULT, complemento_end, numero_end, bairro);
-    -- CAPTURA O ID DO ENDERECO
-    SET @idEndereco = last_insert_id();
-    INSERT INTO endereco_cliente values(idCliente, @idEndereco);
-
-END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_INSERT_AMD` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_INSERT_AMD`( 
-	IN nome VARCHAR(255), 
-	IN login VARCHAR(255),
-	IN senha VARCHAR(50) 
-	)
-BEGIN
-		INSERT INTO ADMIN(nome, login, senha) VALUES(nome, login, senha);
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_IN_PEDIDO_BEBIDA` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_IN_PEDIDO_BEBIDA`(
-	IN qtd_bebida INT, 
-	IN pk_pedido_bebida INT,
-	IN pk_bebida_pedido INT
-    )
-BEGIN
-	INSERT INTO pedido_bebida(qtd_bebida,pk_pedido_bebida, pk_bebida_pedido) 
-	VALUES (qtd_bebida,pk_pedido_bebida, pk_bebida_pedido);
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_LOGAR_USUARIO` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_LOGAR_USUARIO`(
-	IN nome VARCHAR(150),
-	IN senha VARCHAR(150)
-    )
-BEGIN
-	set @login = nome;
-	set @senha = senha;
-	SELECT id_cliente FROM cliente wHERE login_cli = @login AND senha_cli = @senha;
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_SEL_BEBIDA_ID` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_SEL_BEBIDA_ID`(IN id_consulta INT)
-BEGIN
-		SELECT * FROM `bebidas` WHERE `id_bebida` = id_consulta;
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_SEL_PASTEL_ID` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_SEL_PASTEL_ID`(IN id_consulta int)
-BEGIN
-		SELECT * FROM `cardapio_pastel` WHERE `id_cardapio_card` = id_consulta;
-	END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_UP_BEBIDA` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_UP_BEBIDA`(
-	IN id_update INT,
-	IN `tipo_bebida` VARCHAR(255),
-	IN `sabor` VARCHAR(255), 
-	IN `fruto` VARCHAR(255),
-	IN `quantidade_ml` VARCHAR(10),
-	IN `valor_unidade` DECIMAL(10,2)    
-)
-BEGIN
-	UPDATE bebidas
-	SET tipo_bebida  = tipo_bebida, sabor = sabor, fruto = fruto, quantidade_ml = quantidade_ml, valor_unidade= valor_unidade
-	WHERE `id_bebida` = id_update;
-END $$
-DELIMITER ;
-
-
-DROP PROCEDURE IF EXISTS  `PROC_UP_PASTEL` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_UP_PASTEL`(
-	IN id_update int,
-	IN `nome_card` VARCHAR(255),
-	IN `ingrediente_card` VARCHAR(255),
-	IN `valor_unidade_card` DECIMAL(10,2)    
-    )
-BEGIN
-	update cardapio_pastel
-	set nome_card =nome_card, ingrediente_card= ingrediente_card, valor_unidade_card =valor_unidade_card
-	where `id_cardapio_card` = id_update;
-	END $$
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS  `PROC_UP_PEDIDO` ;
-
-DELIMITER $$
-
-CREATE PROCEDURE `PROC_UP_PEDIDO`(
-	IN id_update INT,
-	IN situacao VARCHAR(45),
-	in taxa_entrega decimal(10,2)
-)
-BEGIN 
-	UPDATE pedido
-	SET situacao = situacao, taxa_entrega = taxa_entrega
-	WHERE pedido.id_pedido = id_update;
-END $$
-DELIMITER ;
-
-
-
 
 
 -- VIEWS
@@ -622,7 +253,7 @@ CREATE VIEW `vw_consulta_bebidas` AS
         
 CREATE VIEW `vw_consulta_cardapio` AS
   SELECT 
-      `cardapio_pastel`.`id_cardapio_card` AS `id_cardapio`,
+      `cardapio_pastel`.`id_cardapio` AS `id_cardapio`,
       `cardapio_pastel`.`nome_card` AS `nome`,
       `cardapio_pastel`.`ingrediente_card` AS `ingrediente`,
       `cardapio_pastel`.`valor_unidade_card` AS `valor_unidade`

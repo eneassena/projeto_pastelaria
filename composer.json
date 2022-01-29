@@ -1,0 +1,15 @@
+{
+    "name": "administradores1/projeto_pastelaria",
+    "autoload": {
+        "psr-4": {
+            "Pastelaria//": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "eneassena",
+            "email": "desenvolvedoreneas2000@gmail.com"
+        }
+    ],
+    "require": {}
+}
