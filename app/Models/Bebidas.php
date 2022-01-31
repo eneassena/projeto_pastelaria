@@ -20,5 +20,6 @@ class Bebidas extends Model
         'tipo_bebida',
         'tamanho',
         'valor'
-    ]
+    ];
+
 }

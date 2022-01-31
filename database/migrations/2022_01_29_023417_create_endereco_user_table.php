@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnderecoClienteTable extends Migration
+class CreateEnderecoUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateEnderecoClienteTable extends Migration
      */
     public function up()
     {
-        Schema::create('endereco_cliente', function (Blueprint $table) {
-            $table->id('id_endereco_cliente');
+        Schema::create('endereco_user', function (Blueprint $table) {
+            $table->id('id_endereco_user');
             $table->unsignedBigInteger('fk1_endereco_id');
             $table->unsignedBigInteger('fk1_user_id');
 

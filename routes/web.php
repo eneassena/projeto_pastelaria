@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+
+use App\Http\Services\ProdutosService;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,12 +30,35 @@ Route::get('/sobre', [SobreController::class, "homeTemplate"]);
 Route::get('/lista-de-espera', [ListaDeEsperaController::class, "homeTemplate"]);
 Route::get('/cardapio', [CardapioController::class, "homeTemplate"]);
 
-Route::get('/login', function() {
-    $template = view('cliente.forms.login_user');
+Route::get('produtos', function() {
 
-    echo $template;
+    $cardapios = ProdutosService::cardapio();
+    $bebidas = ProdutosService::bebida();
+    $localizacao = ProdutosService::localizacao();
+
+    echo "<h1>Cardápio</h1>";
+    echo '<pre>';
+    foreach($cardapios as $row => $value){
+        if($row == 10) break;
+        printf("<p>%d | %s</p>",  $row, $value->sabor);
+    }
+    echo "<h1>Bebidas</h1>";
+    foreach($bebidas as $row => $value){
+        if($row == 10) break;
+        printf("<p>%d | %s | %s | %s</p>",  $row, $value->tipo_bebida, $value->sabor, $value->tamanho);
+    }
+    echo "<h1>Localizacao</h1>";
+    foreach($localizacao as $row => $value){
+
+        printf("<p>%d | %s</p>",  $row, $value->bairro);
+    }
+
 
 });
+
+
+// rotas de authenticate e criação de usuarios
+Route::get('/login', [AuthUserController::class, 'login']);
 Route::post('/login/auth', [AuthUserController::class, "authenticate"]);
 Route::get('/logout', [AuthUserController::class, "logout"]);
 Route::get('/create', [AuthUserController::class, "create"]);

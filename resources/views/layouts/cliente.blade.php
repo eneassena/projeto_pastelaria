@@ -6,10 +6,10 @@
 
         <title>Pastelaria - @yield('title')</title>
         <!-- main_footer_site -->
-        <link rel="stylesheet" href="{{ asset('assets/bootstrap/node_modules/bootstrap/compiler/layout.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/node_modules/bootstrap/compiler/layout.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('assets/bootstrap/node_modules/bootstrap/compiler/cliente/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/bootstrap/node_modules/bootstrap/compiler/opcao.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/node_modules/bootstrap/compiler/cliente/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/node_modules/bootstrap/compiler/opcao.css') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
@@ -89,13 +89,14 @@
             </section>
 
             <footer class="main_footer_site">
-                <div class="mx-3">
+                <div class="container">
                     <div class="row">
+
                         <div class="col-12">
-                            <hr>
+                            <hr class="border">
                         </div>
 
-                        <div class="col-sm-4 ">
+                        <div class="col-md-4 col-sm-4 ">
                             <h3>Localização</h3>
                             <div>
                                 <iframe
@@ -105,7 +106,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-4 mb-3">
+                        <div class="col-md-4 col-sm-4 mb-3">
                             <h3 class="h3 ml-1">Mapa Site</h3>
                             <div class="list-group text-center">
                                 <a href="{{ url('') }}" class="list-group-item list-group-item-action list-group-item-primary">Home</a>
@@ -118,42 +119,44 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-4">
-                            <h3 class="h3 my-2">Social</h3>
-                            <div class="btn-group-vertical btn-block btn-group-lg" role="group">
-                                <a class="btn btn-outline-danger" target="_blank"
-                                    href="https://www.instagram.com/pastelariadogaucho10/?igshid=115ti8qoa8j7a"><i
-                                        class="fa fa-instagram"></i>Instagram</a>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="row">
+                                <h3 class="h3 my-2">Social</h3>
+                                <div class="btn-group-vertical btn-block btn-group-lg" role="group">
+                                    <a class="btn btn-outline-danger" target="_blank"
+                                        href="https://www.instagram.com/pastelariadogaucho10/?igshid=115ti8qoa8j7a">
+                                        <i class="fa fa-instagram"></i>Instagram</a>
+                                </div>
                             </div>
 
-                            <h3 class="h3 mt-2">Contato</h3>
-                            <div class="btn-group-vertical btn-block btn-group-lg" role="group">
-                                <a class="btn btn-outline-success mb-2" target="_blank" href="https://api.whatsapp.com/send?phone=+5571987127084"><i
-                                        class="fa fa-whatsapp"></i>Whatsapp</a>
-                                <a href="tel:+557130372254" target="_blank" class="my-2 btn btn-outline-warning">Fixo</a>
+                            <div class="my-2"></div>
+
+                            <div class="row">
+                                <h3 class="h3 mt-2">Contato</h3>
+                                <div class="btn-group-vertical btn-block btn-group-lg" role="group">
+                                    <a class="btn btn-outline-success mb-2" target="_blank" href="https://api.whatsapp.com/send?phone=+5571987127084"><i
+                                            class="fa fa-whatsapp"></i>Whatsapp</a>
+                                    <a href="tel:+557130372254" target="_blank" class="my-2 btn btn-outline-warning">Fixo</a>
+                                </div>
                             </div>
                         </div>
 
-
-                        <div class="col-12 funcion">
+                        <div class="col-12 my-3 funcion">
                             <h6 style="color: black; text-align: center;">Aberta de Segunda a Domingo, exceto Quarta e Quinta - 17
                                 às 23h</h6>
                         </div>
-
                     </div>
 
                 </div>
             </footer>
         </main>
 
-        <script src="{{ asset('assets/bootstrap/node_modules/jquery/dist/jquery.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="{{ asset('assets/bootstrap/node_modules/jquery/dist/jquery.mask.min.js') }}"></script>
-        <script src="{{ asset('assets/bootstrap/node_modules/jquery/dist/jquery.validate.min.js') }}"></script>
-        <script src="{{ asset('assets/java-script/jquery.numeric.min.js') }}"></script>
-        <script src="{{ asset('assets/java-script/default-project.js') }}"></script>
+        <!-- scripts -->
+        <script src="{{ asset('assets\java-script\jquery\jquery-3.6.0.min.js') }}"></script>
+        <script src="{{ asset('assets\java-script\jquery\jquery.mask.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
+        <script src="{{ asset('assets/java-script/default.js') }}"></script>
         <script src="{{ asset('assets/java-script/altera_texto.js') }}"></script>
-        <script src="{{ asset('assets/java-script/requests.js') }}" type="text/javascript"></script>
-
+        <script src="{{ asset('assets/java-script/cliente/validate.js') }}"></script>
     </body>
 </html>

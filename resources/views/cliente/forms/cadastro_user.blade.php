@@ -1,97 +1,96 @@
 @extends('layouts.cliente_forms')
-
-
 @section('title', 'Cadastro')
-
+@section('content')
 @error('message')
-    <div class="alert alert-info">
-        {{ $message }}
+    <div class="alert alert-info my-3">
+        <span> <strong>{{$message}}</strong> </span>
     </div>
 @enderror
-
-@section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <h1 class="text-muted text-center my-5">Cadastre-se</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-muted text-center my-5">Cadastre-se</h1>
+            </div>
+        </div>
+        <form class="row justify-content-center" id="form_cadastro" action="{{ url('store') }}" method="POST" autocomplete='off' novalidate>
+            @csrf
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- nome -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Entre nome"
+                                       required />
+                                <label for="name">Nome</label>
+                            </div>
+                        </div>
 
-        <div class="col-sm-10 my-3 p-3">
-            <form id="form_cadastro" action="{{ url('auth/store') }}" method="POST" autocomplete='off'>
-                @csrf
+                        <div class="col-md-6">
+                            <!-- telefone -->
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="telefone" id="telefone"
+                                       placeholder="(00) 00000-0000)" required />
+                                <label for="telefone">Telefone</label>
+                            </div>
+                        </div>
 
-                <div class="form-row">
-                    <!-- nome -->
-                    <div class="form-group col-sm-6">
-                        <label for="name">Nome</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Entre nome"
-                            required />
-                    </div>
-
-                    <!-- telefone -->
-                    <div class="form-group col-sm-6">
-                        <label for="telefone">Telefone</label>
-                        <input type="text" class="form-control" name="telefone" id="telefone"
-                            placeholder="(00) 00000-0000)" required />
-                    </div>
-                </div>
-
-                <div class="form-row mt-3">
-                    <!-- complemento -->
-                    <div class="form-group col-sm-4">
-                        <label for="complemento">complemento</label>
-                        <input type="text" class="form-control" name="complemento" id="complemento"
-                            placeholder="Entre complemento" required />
-                    </div>
-                    <!-- numero -->
-                    <div class="form-group col-sm-4">
-                        <label for="numero">numero</label>
-                        <input type="number" class="form-control" name="numero" id="numero" placeholder="Entre N°"
-                            required />
-                    </div>
-                    <!-- bairro -->
-                    <div class="form-group col-sm-4">
-                        <label for="bairro">bairro</label>
-                        <input type="text" class="form-control" name="bairro" id="bairro" placeholder="Entre bairro"
-                            required />
                     </div>
                 </div>
-
-                <div class="form-row mt-3">
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <!-- complemento -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="complemento" id="complemento"
+                                       placeholder="Entre complemento" required />
+                                <label for="complemento">complemento</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- numero -->
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" name="numero" id="numero" placeholder="Entre N°"
+                                       required />
+                                <label for="numero">numero</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- bairro -->
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="bairro" id="bairro" placeholder="Entre bairro"
+                                       required />
+                                <label for="bairro">bairro</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
                     <!-- login -->
-                    <div class="form-group col-sm-6">
-                        <label for="login">login</label>
+                    <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="login" id="login" placeholder="Entre usuário"
-                            required />
+                               required />
+                        <label for="login">login</label>
                     </div>
 
                     <!-- senha -->
-                    <div class="form-group col-sm-6">
-                        <label for="password">senha</label>
+                    <div class="form-floating">
                         <input type="password" class="form-control" name="password" id="password"
-                            placeholder="Entre password" required />
+                               placeholder="Entre password" required />
+                        <label for="password">senha</label>
                     </div>
                 </div>
+                <div class="row justify-content-end align-items-center">
 
-                <div class="form-row mt-3 justify-content-end">
-                    <div class="form-group col-sm-6">
-                    <?php if(isset($boas_vindas)): ?>
-
-                        <div class="alert alert-success">
-                            <p class="text-center pt-3"><strong><?php echo $boas_vindas; ?></strong></p>
-                        </div>
-
-                    <?php elseif(isset($dados_incorreto)):?>
-                        <div class="alert alert-danger">
-                            <p class="text-center pt-1"><strong><?php echo $dados_incorreto; ?></strong></p>
-                        </div>
-                    <?php endif ?>
+                    <div class="col-auto">
+                        <span>Já tem <a href="{{ url('login') }}">conta</a></span>
                     </div>
-                    <div class="form-group col-sm-6">
-                        <input type="submit" class="float-right btn btn-primary" value="Cadastrar">
+                    <div class="col-auto">
+                        <input type="submit" class="btn btn-outline-primary" value="Cadastrar">
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
+            </div>
+        </form><!-- end.form-->
+        <div class="my-5"></div>
 </div>
-
 @endsection

@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EnderecoCliente extends Model
+class EnderecoUser extends Model
 {
     use HasFactory;
 
     /** @var string[$table] */
-    protected $table = 'endereco_cliente';
+    protected $table = 'endereco_user';
 
     /** @var string[$primaryKey] */
-    protected $primaryKey = 'id_endereco_cliente';
+    protected $primaryKey = 'id_endereco_user';
 
     /**
     * campos visiveis para insert de novos registros

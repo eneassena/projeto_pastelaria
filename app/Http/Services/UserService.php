@@ -8,16 +8,24 @@ use App\Models\EnderecoCliente;
 use Illuminate\Support\Facades\Hash;
 
 class UserService {
-
-    public function checkFieldLoginUser(string $login): null|User {
-        return User::where('login', $login)->first();
+    /**
+     * @param string[$login]
+     * @return bool
+     */
+    public function checkFieldLoginUser(string $login): bool
+    {
+        $user = User::where('login', $login)->first();
+        
+        return $user ? $user->exists : false;
     }
 
-
-
+    /**
+     * @param array[$data]
+     * @return bool
+     */
     public function storeUser(array $data): bool {
 
-        if($this->checkFieldLoginUser($data['login'])->exists){
+        if($this->checkFieldLoginUser($data['login'])){
             return false;
         }
 

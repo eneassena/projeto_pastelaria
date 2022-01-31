@@ -10,6 +10,13 @@ use App\Http\Services\UserService;
 
 class AuthUserController extends Controller
 {
+
+    public function login() {
+        $template = view('cliente.forms.login_user');
+
+        echo $template;
+    }
+
     /**
      * @param Request[$request]
      * @return void
@@ -26,10 +33,12 @@ class AuthUserController extends Controller
         if($auth) {
             $request->session()->regenerate();
 
-            return [ 'auth' => $auth ];
+            return redirect('/');
         }
 
-        return [ 'auth' => $auth ];
+        return back()->withErrors([
+            'message' => 'credenciais invalidas'
+        ]);
     }
 
 
@@ -62,7 +71,9 @@ class AuthUserController extends Controller
      * @return void
      */
     public function store(Request $request) {
+
         $informacoesForm = $request->except(['_token']);
+
         $informacoesForm['is_super_user'] = 0;
 
         if((new UserService)->storeUser($informacoesForm)){

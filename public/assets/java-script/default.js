@@ -11,8 +11,9 @@ let divDadosCliente = document.querySelector("#div_dados_cliente");
 
 
 // a primeira li ja começa ativa com a por e o display da div visivel
-if (pastel)
+if (pastel) {
     pastel.style.background = "#FFC107";
+}
 
 if (pastel) {
     pastel.addEventListener('click', (event) => {
@@ -79,92 +80,34 @@ if (dadosCliente) {
 
 // ----------------------------------------- ||
 // manipulando o conteúdo dos card na pagina home
+    $(document).ready(function() {
+        const manupulando_elementos = (veja_mais, veja_menos, btn) => {
+            $(btn).on('click', event => {
+                if ( $(veja_menos).css('display') === "none") {
+                    $(veja_mais).css('display', 'none');
+                    $(veja_menos).css('display', 'block');
+                    $(btn).text('Leia menos');
+                } else {
+                    $(veja_menos).css('display', 'none');
+                    $(veja_mais).css('display', 'block');
+                    $(btn).text('Leia mais');
+                }
+            });
+        }
+        manupulando_elementos('#veja_mais_maravilha','#veja_menos_maravilha', '#btn_maravilha');
+        manupulando_elementos('#veja_mais_joe','#veja_menos_joe', '#btn_joe');
+        manupulando_elementos('#veja_mais_biani','#veja_menos_biani', '#btn_biani');
 
-function maravilha() {
-    let pontos = document.querySelector('#pontos_mar');
-    let mais = document.querySelector('#mais_mar');
-    let btn = document.querySelector('#btn_maravilha');
+        manupulando_elementos('#veja_mais_dez','#veja_menos_dez', '#btn_dez');
+        manupulando_elementos('#veja_mais_carne','#veja_menos_carne', '#btn_carne');
+        manupulando_elementos('#veja_mais_salada','#veja_menos_salada', '#btn_salada');
+    });
 
-    if (pontos.style.display === "none") {
-        pontos.style.display = 'inline';
-        mais.style.display = 'none';
-        btn.innerHTML = 'Leia mais';
-    } else {
-        pontos.style.display = 'none';
-        mais.style.display = 'inline';
-        btn.innerHTML = 'Leia menos';
-    }
-}
-
-function joe() {
-    let pontos = document.querySelector('#pontos_joe');
-    let mais = document.querySelector('#mais_joe');
-    let btn = document.querySelector('#btn_joe');
-
-    if (pontos.style.display === "none") {
-        pontos.style.display = 'inline';
-        mais.style.display = 'none';
-        btn.innerHTML = 'Leia mais';
-    } else {
-        pontos.style.display = 'none';
-        mais.style.display = 'inline';
-        btn.innerHTML = 'Leia menos';
-    }
-}
-
-function biani() {
-    let pontos = document.querySelector('#pontos_biani');
-    let mais = document.querySelector('#mais_biani');
-    let btn = document.querySelector('#btn_biani');
-
-    if (pontos.style.display === "none") {
-        pontos.style.display = 'inline';
-        mais.style.display = 'none';
-        btn.innerHTML = 'Leia mais';
-    } else {
-        pontos.style.display = 'none';
-        mais.style.display = 'inline';
-        btn.innerHTML = 'Leia menos';
-    }
-}
-
-function dez() {
-    let pontos = document.querySelector('#pontos_dez');
-    let mais = document.querySelector('#mais_dez');
-    let btn = document.querySelector('#btn_dez');
-
-    if (pontos.style.display === "none") {
-        pontos.style.display = 'inline';
-        mais.style.display = 'none';
-        btn.innerHTML = 'Leia mais';
-    } else {
-        pontos.style.display = 'none';
-        mais.style.display = 'inline';
-        btn.innerHTML = 'Leia menos';
-    }
-}
-
- 
 // ------- fim da manipulação dos card da home
 
+ 
 
-// mascara do formulario pagina pedido na opção dados do cliente
-$(document).ready(function() {
-
-        $('#xCelular').mask("(00) 0000-00009")
-        $('#xCelular').blur(function(event) {
-            if ($(this).val().length == 15) {
-                $('#xCelular').mask("(00) 00000-0009")
-            } else {
-                $('#xCelular').mask('(00) 0000-00009')
-            }
-        })
-
-    })
-    //  ---------------------------------------------------------
-
-
-// manipulando area restrita 
+// manipulando area restrita
 
 let consulta_pastel_ancora = document.querySelector('#consultar_pastel');
 let consulta_pastel_table = document.getElementById('div_consult_pastel')
@@ -210,4 +153,3 @@ if (button_bebida) {
 }
 
 // -----------------------------------------------------------------
-

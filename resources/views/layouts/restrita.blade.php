@@ -8,37 +8,36 @@
         <!-- main_footer_site -->
         <link rel="stylesheet" href="{{ asset('assets/bootstrap/node_modules/bootstrap/compiler/layout.css') }}">
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/bootstrap/node_modules/bootstrap/compiler/opcao.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/bootstrap/node_modules/bootstrap/compiler/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/node_modules/bootstrap/compiler/opcao.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/node_modules/bootstrap/compiler/bootstrap.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="{{ asset('assets/java-script/sweetalert2.all.min.js') }}" type="text/javascript"></script>
     </head>
     <body>
 
-        
+
         <main class="main_site">
             <header class="">
                 @section('sidebar')
                     <!-- CABEÇARIO -->
                     <!-- --------------------- -->
                     <!-- Barra de navegação id="nav-menu" -->
-    
+
                     <nav class="navbar navbar-expand-lg navbar-light bg-danger" id="nav-menu">
-    
+
                         <a class="navbar-brand h1 mb-0" href="{{ url('area-restrita') }}">
                             <img src="{{ asset('assets/image/logo.png') }}" alt="logo" width="30" height="30">
                         </a>
-    
+
                         <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSite">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-    
+
                         <div class="collapse navbar-collapse" id="navbarSite">
-    
+
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"><a class="nav-link text-white" href="{{ url('area-restrita') }}">Home</a></li>
                             </ul>
-    
+
                             <!-- aqui entra formukario de login  -->
                             <!-- Button trigger modal -->
                             <div class="" data-toggle="modal" data-target="#exampleModalCenter">
@@ -50,9 +49,9 @@
                                     </svg> MINHA CONTA</a>
                             </div>
                         </div>
-    
+
                     </nav>
-    
+
                     <!------------- DIV DE LOGIN------------->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -64,7 +63,7 @@
                                         <span aria-hidden="true">&times;</span><!-- &times; -->
                                     </button>
                                 </div>
-    
+
                                 <div class="modal-body">
                                     <div class="row justify-content-center">
                                         <form action="#{{ url('') }}" method="POST" autocomplete='off'>
@@ -75,7 +74,7 @@
                                                         placeholder="Entre usuário" />
                                                 </div>
                                             </div>
-    
+
                                             <div class="form-row">
                                                 <div class="form-group col-sm-12">
                                                     <label>Password</label>
@@ -83,7 +82,7 @@
                                                         placeholder="Entre password" />
                                                 </div>
                                             </div>
-    
+
                                             <div class="form-row">
                                                 <div class="form-group col-sm-12">
                                                     <button class="btn btn-warning">Entrar</button>
@@ -91,7 +90,7 @@
                                                         Cadastro</a>
                                                 </div>
                                             </div>
-    
+
                                         </form>
                                     </div>
                                 </div>
@@ -101,11 +100,11 @@
                 @show
             </header>
             <section>
-                @yield('content')            
+                @yield('content')
             </section>
         </main>
-        
-       
+
+
         <script src="{{ asset('assets/bootstrap/node_modules/jquery/dist/jquery.js') }}"></script>
         <script src="{{ asset('assets/bootstrap/node_modules/popper.js/dist/umd/popper.js') }}"></script>
         <script src="{{ asset('assets/bootstrap/node_modules/bootstrap/dist/js/bootstrap.js') }}"></script>

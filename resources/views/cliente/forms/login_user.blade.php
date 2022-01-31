@@ -1,64 +1,45 @@
 @extends('layouts.cliente_forms')
-
-
 @section('title', 'Login')
-
+@section('content')
 @error('message')
-    <div class="alert alert-info">
-        {{ $message }}
+    <div class="alert alert-info my-3">
+        <span> <strong>{{$message}}</strong> </span>
     </div>
 @enderror
-
-@section('content')
 <div class="container">
-    <div class="row-12">
-        <h1 class="text-muted text-center my-5">Painel Acesso</h1>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h1 class="text-muted text-center my-5">Painel Acesso</h1>
+        </div>
     </div>
-
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <form action="{{ url('login/auth') }}" method="post">
+    <form class="row justify-content-center needs-validation" action="{{ url('login/auth') }}" method="post" novalidate>
         @csrf
-        <div class="row justify-content-center mb-3">
-            <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-floating mb-3">
                 <!-- login -->
-                <div class="form-floating">
-                    <input type="text" class="form-control"
-                    name="login" id="login"
-                    placeholder="Entre usuário"
-                    required
-                    />
-                    <label for="login">Login do Usuário</label>
-                </div>
+                <input type="text" class="form-control"
+                    placeholder="Login do Usuário"
+                    name="login" id="login" required
+                />
+                <label for="login">Login do Usuário</label>
             </div>
-        </div>
-        <div class="row justify-content-center mb-3">
-            <div class="col-md-6 col-sm-12">
-                <!-- password -->
-                <div class="form-floating">
-                    <input type="text" class="form-control"
-                    name="password" id="password"
-                    placeholder="(00) 00000-0000)"
-                    required
-                    />
-                    <label for="password">Senha do Usuário</label>
-                </div>
-            </div>
-        </div>
 
-        <div class="row justify-content-evenly">
-            <div class="col-auto">
-                <a href="{{ url('create') }}" class="btn text-primary"><span>Cadastre-se</span></a>
+            <div class="form-floating mb-3">
+                <!-- password -->
+                <input type="password" class="form-control"
+                    placeholder="Senha do Usuário"
+                    name="password" id="password" required
+                />
+                <label for="password">Senha do Usuário</label>
             </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-outline-warning">Acessar</button>
+
+            <div class="col my-5"><hr class="border"></div>
+
+            <div class="row justify-content-between m-0 p-0">
+                    <a href="{{ url('create') }}" class="btn btn-outline-primary mb-2"><span>Cadastre-se</span></a>
+                    <button type="submit" class="btn btn-outline-warning">Acessar</button>
             </div>
         </div>
     </form>
-        </div>
-    </div>
-
-
 </div><!-- </div.container> -->
-
 @endsection

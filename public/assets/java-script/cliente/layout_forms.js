@@ -1,6 +1,6 @@
 // validação do formulário de pedido
 $(document).ready(function() {
-    $('#form_cadastro').validate({
+    /* $('#form_cadastro').validate({
         rules: {
             name: {
                 required: true
@@ -53,13 +53,14 @@ $(document).ready(function() {
                 rangelength: " sua senha deve ter entre 6 a 20 caracteres"
             }
         }
-    });
-    $('#telefone').mask("(00) 0000-00009")
-    $('#telefone').blur(function(event) {
-        if ($('#telefone').val().length == 15) {
-            $('#telefone').mask("(00) 00000-0009")
-        } else {
-            $('#telefone').mask('(00) 0000-00009')
-        }
-    })
+    }); */
+    
+
+    // $('#telefone').blur(function(event) {
+    //     if ($('#telefone').val().length == 15) {
+    //         $('#telefone').mask("(00) 00000-0009")
+    //     } else {
+    //         $('#telefone').mask('(00) 0000-00009')
+    //     }
+    // })
 });
