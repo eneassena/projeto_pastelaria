@@ -1,0 +1,52 @@
+/*
+  Mapeamento de atividades no site
+  o site esta dividido em dua areas a restrita e cliente
+
+  O sistema possui as seguintes páginas
+  Home
+    - login
+    - cadastrar
+    - logout
+  Sobre
+  Cardapio
+    - listagem do cardapio dos pasteis
+    - listagem das bebidas
+  Ver Pedido
+    - ver detalhes
+  Fazer Pedido
+    - adicionar pastel
+    - remover pastel
+    - adicionar bebida
+    - remover bebida
+    - enviar pedido
+
+
+  Tarefas encontradas na area do cliente
+    * realizar login
+    * cadastrar um novo usuario do sistema
+    * fazer logout
+    * ver detalhes do pedido
+    * adicionar pastel
+    * remover pastel
+    * adicionar bebida
+    * remover bebida
+    * enviar pedido
+    * listagem do cardapio dos pasteis
+    * listagem das bebidas
+
+
+
+
+
+  e conta ainda com as paginas da area restrita
+
+  Home
+    - editar pedido
+  Pastel
+    - editar
+    - adicionar
+  Bebida
+    - editar
+    - adicionar
+  
+*/
