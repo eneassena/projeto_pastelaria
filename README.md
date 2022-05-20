@@ -7,7 +7,7 @@ $ `git clone https://github.com/eneassena/projeto_pastelaria.git`
 ### para obter a versão mais recente do projeto mude para branch renovacao com seguinte comando.
 $ `git checkout renovacao`
 
-## Nesse momento você está com verão atualizada, dentro da pasta do projeto execute o seguinte comando.
+## Nesse momento você está com versão atualizada, dentro da pasta do projeto execute o seguinte comando.
 $ `composer update`
 Este comando irá instalar os pacote que são dependencias do projeto
 
