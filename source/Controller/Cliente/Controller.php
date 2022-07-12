@@ -67,7 +67,7 @@ abstract class Controller
   {
     $this->template = new Engine(PATH_TEMPLATE, 'php');
     $this->data = [];
-    $this->router = new Router(ROOT);
+    $this->setRouter(new Router(ROOT));
   }
  
 }

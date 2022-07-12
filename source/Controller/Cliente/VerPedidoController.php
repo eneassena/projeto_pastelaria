@@ -10,9 +10,10 @@ class VerPedidoController extends Controller
 {
   public function __construct(Router $router)
   {
+   
     parent::__construct();
-    $this->setRouter($router);
-    $this->setData('registro_pedido', (new PedidoModel())->ver_pedido());
+    //$this->setRouter($router);
+    //$this->setData('registro_pedido', (new PedidoModel())->ver_pedido());
   }
 
   /**
@@ -21,10 +22,11 @@ class VerPedidoController extends Controller
    */
   public function home(array $data): void
   {
+  
     $this->setData('messagem_pedido_invalido', (isset($data['message']) && !empty($data['message'])) ? $data['message'] : '');
 
     $this->setData('title', SITE . " | Ver Pedido");
-
+     
     echo $this->getTemplate()->render("site/ver_pedido", $this->getData());
   }
 
