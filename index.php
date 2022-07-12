@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . "/vendor/autoload.php";
-
+ 
 use CoffeeCode\Router\Router;
 
 
@@ -11,7 +11,8 @@ session_start();
 //var_dump($_SESSION);
 
 $route = new Router(ROOT);
-
+ 
+ 
 /**
  * APP
  */

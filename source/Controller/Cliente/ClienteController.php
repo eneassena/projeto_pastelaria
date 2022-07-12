@@ -3,11 +3,10 @@
 namespace Source\Controller\Cliente;
 
 use CoffeeCode\Router\Router;
-use Source\Controller\Cliente\Interface\ClienteInterface;
 use Source\Models\site\User;
 
 
-class ClienteController extends Controller implements ClienteInterface
+class ClienteController extends Controller
 {
 
   /**

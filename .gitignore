@@ -3,3 +3,5 @@ vendor
 exemplo
 source/Models/dicionario.txt
 /fluxogramas.md
+/composer.lock
+.vscode

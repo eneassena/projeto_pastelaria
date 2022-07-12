@@ -5,11 +5,8 @@ namespace Source\Controller\Cliente;
 
 use CoffeeCode\Router\Router;
 use League\Plates\Engine;
-use Source\Controller\Cliente\Interface\ControllerInterface;
 
-abstract class Controller implements
-
- ControllerInterface
+abstract class Controller
 {
   /** @var Engine[$template] */
   private $template = null;
@@ -46,7 +43,7 @@ abstract class Controller implements
   /**
    * @return Router
    */
-  public function getRouter(): null|Router {
+  public function getRouter(): Router {
     return $this->router;
   }
 
