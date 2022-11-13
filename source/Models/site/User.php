@@ -181,14 +181,13 @@ class User extends \CoffeeCode\DataLayer\DataLayer
         if(!empty($data['user_login']) && !empty($data['user_senha']))
         {
             $user = $this->find("login=:data_login", "data_login={$data['user_login']}")->fetch();
- 
             if($user)
             {
                 if(
-                  password_verify($data['user_senha'], $user->data()->senha ) &&
-                 $user->data()->tipoUsuario === 'cliente')
-                {
-                    $this->user = $user->data();
+                    password_verify($data['user_senha'], $user->data()->senha ) &&
+                    $user->data()->tipoUsuario === 'cliente')
+                { 
+                    $this->user = $user;
                     $this->success = true;
                     return $this;
                 } else {

@@ -3,6 +3,7 @@
 namespace Source\Controller\Cliente;
 
 use CoffeeCode\Router\Router;
+use Source\Controller\Cliente\Service\ClienteService;
 use Source\Models\site\User;
 
 
@@ -17,6 +18,7 @@ class ClienteController extends Controller
   {
     parent::__construct();
     $this->setRouter($router);
+    $this->clienteService = new ClienteService();
   }
 
   /**
@@ -64,33 +66,30 @@ class ClienteController extends Controller
     //   ["user_login"]=> string(12) DATA
     //   ["user_senha"]=> string(6) DATA
     // )
+    $data = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $data = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+    $instance= (new User)->login($data);
+    // $instance = $this->clienteService->cliente_validate_login($_POST);
+    
 
-    $user = (new User)->login($data);
-
-    if (!$user->success) {
+    if (!$instance->success) {
       $message = "Crendenciais invalidas";
       $this->getRouter()->redirect("contato/{$message}");
     }
+    if (strcmp($instance->user->tipoUsuario, 'cliente') == 0) {
 
-    $user = $user->user;
-
-    if (strcmp($user->tipoUsuario, 'cliente') == 0) {
-
-      $_SESSION['user_' . $user->tipoUsuario] = [
-        'id' => $user->idUser,
-        'tipoUser' => $user->tipoUsuario
+      $_SESSION['user_' . $instance->user->tipoUsuario] = [
+        'id' => $instance->user->idUser,
+        'tipoUser' => $instance->user->tipoUsuario
       ];
+ 
+      (new User)->ativarUser((int) $instance->user->idUser, '1');
 
-      (new User)->ativarUser((int) $user->idUser, '1');
-
-      $message = "Usuário {$user->login}, logado com sucesso!";
+      $message = "Usuário {$instance->user->login}, logado com sucesso!";
       $this->getRouter()->redirect("contato/{$message}");
     }
-    // $message = "Usuario Invalido";
     $message = "Usuario Invalido!!!";
-    $this->getRouter()->redirect("contato/{$message}");
+    echo $this->getRouter()->redirect("contato/{$message}");
   }
 
   /**
