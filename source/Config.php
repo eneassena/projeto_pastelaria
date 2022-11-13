@@ -44,9 +44,9 @@ define("DATA_LAYER_CONFIG", [
     "driver"    => "mysql",
     "host"      => "127.0.0.1",
     "port"      => 3306,
-    "dbname"    => "dbname",
-    "username"  => "username",
-    "passwd"    => "password",
+    "dbname"    => "pastelaria_gaucho",
+    "username"  => "root",
+    "passwd"    => "Jose123_+#",
     "options"   => [
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

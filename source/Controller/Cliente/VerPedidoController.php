@@ -13,7 +13,7 @@ class VerPedidoController extends Controller
    
     parent::__construct();
     $this->setRouter($router);
-    // $this->setData('registro_pedido', (new PedidoModel())->ver_pedido());
+    $this->setData('registro_pedido', (new PedidoModel())->ver_pedido());
   }
 
   /**

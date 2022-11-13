@@ -139,17 +139,20 @@ class areaRestritaController extends Controller
   public function storePedidoDetalhes(): void
   {
     $message = "pedido não foi encontrado";
-    $dataFormPedidoDetalhe = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+    $dataFormPedidoDetalhe = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $pedido = (new PedidoModel)->findById((int) $dataFormPedidoDetalhe['id_pedido']);
 
     if ($pedido->data()) {
-      $pedido->taxaDeEntrega = str_replace(",", ".", $dataFormPedidoDetalhe['taxa_entrega']);
+      if(!is_null($dataFormPedidoDetalhe['taxa_entrega'])) {
+        $pedido->taxaDeEntrega = str_replace(",", ".", $dataFormPedidoDetalhe['taxa_entrega']);
+      }
+
       $pedido->situacao = $dataFormPedidoDetalhe['situacao'];
       $pedido->updated_at = date('Y-m-d H:m:s');
-      $pedido->save();
+      $this->success= $pedido->save();
+      
       $message = "pedido foi atualizado";
-      $this->success = true;
     } else {
       $this->success = false;
     }
