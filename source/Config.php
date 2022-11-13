@@ -42,11 +42,11 @@ define("TIMEZONE", date_default_timezone_set($timezones['BA']));
 /** constante de conexão de banco de dados */
 define("DATA_LAYER_CONFIG", [
     "driver"    => "mysql",
-    "host"      => "localhost",
+    "host"      => "127.0.0.1",
     "port"      => 3306,
-    "dbname"    => "pastelaria_gaucho",
-    "username"  => "root",
-    "passwd"    => "",
+    "dbname"    => "dbname",
+    "username"  => "username",
+    "passwd"    => "password",
     "options"   => [
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
