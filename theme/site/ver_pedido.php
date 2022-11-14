@@ -51,7 +51,7 @@
                <?php $this->stop() ?>
            <?php endif ?>
 
-           <?php if (valida_exibicao($registro_pedido)) : ?>
+           <?php if (isset($registro_pedido) ? valida_exibicao($registro_pedido) : []) : ?>
              <?php foreach ($registro_pedido as $field => $value) :?>
 
                  <?php if((int)$value->idUser == (int) $_SESSION['user_comun_id']):?>

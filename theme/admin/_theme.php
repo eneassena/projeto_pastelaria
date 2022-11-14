@@ -9,12 +9,12 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<?= assets('assets/adminlte/plugins/fontawesome-free/css/all.min.css') ?>">
+  <link rel="stylesheet" href="<?= assets('assets/adminLte/plugins/fontawesome-free/css/all.min.css') ?>">
   <!-- IonIcons -->
   <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?= assets('assets/adminlte/dist/css/adminlte.min.css') ?>">
+  <link rel="stylesheet" href="<?= assets('assets/adminLte/dist/css/adminlte.min.css') ?>">
 
   <link rel="shortcut icon" href="<?= assets('assets/image/favicon.ico') ?>" type="image/x-icon">
 
@@ -50,7 +50,7 @@
       <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="<?= url('theme/assets/adminlte/dist/img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image">
+            <img src="<?= url('theme/assets/adminLte/dist/img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
 
@@ -121,11 +121,11 @@
   </div>
   <!-- ./wrapper -->
 
-  <script src="<?= assets('assets/adminlte/plugins/jquery/jquery.min.js') ?>"></script>
+  <script src="<?= assets('assets/adminLte/plugins/jquery/jquery.min.js') ?>"></script>
   <!-- Bootstrap -->
-  <script src="<?= assets('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+  <script src="<?= assets('assets/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
   <!-- AdminLTE -->
-  <script src="<?= assets('assets/adminlte/dist/js/adminlte.min.js') ?>"></script>
+  <script src="<?= assets('assets/adminLte/dist/js/adminlte.min.js') ?>"></script>
   <!-- OPTIONAL SCRIPTS -->
 
   <script src="<?= assets('assets/js/sweetalert2.all.min.js'); ?>" type="text/javascript"></script>

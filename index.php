@@ -3,14 +3,22 @@
 require __DIR__ . "/vendor/autoload.php";
 
 use CoffeeCode\Router\Router;
-
+use CoffeeCode\DataLayer\Connect;
 
 
 session_start();
 //var_dump(session_regenerate_id());
 //var_dump($_SESSION);
-
+ 
 $route = new Router(ROOT);
+ 
+$c = Connect::getInstance();
+$e = Connect::getError();
+if( $e){
+    var_dump($e);
+    die;
+}
+
 
 /**
  * APP
@@ -104,6 +112,7 @@ $route->get("/{message}", "areaRestritaController:home", "area_restrita.home");
 $route->get("/login-admin", "areaRestritaController:login_admin", "area_restrita.login_admin");
 $route->get("/login-admin/{message}", "areaRestritaController:login_admin", "area_restrita.login_admin");
 $route->post("/login-validate", "areaRestritaController:login_validate", "area_restrita.login_validate");
+
 
 if(isset($_SESSION['user_superuser'])){
     // main

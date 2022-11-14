@@ -3,13 +3,11 @@
 namespace Source\Controller\Cliente;
 
 use CoffeeCode\Router\Router;
-use Source\Controller\Cliente\Interface\ClienteInterface;
+use Source\Controller\Cliente\Service\ClienteService;
 use Source\Models\site\User;
 
 
-class ClienteController extends Controller implements ClienteInterface
-{
-
+class ClienteController extends Controller {
   /**
    * Contructor()
    * @return void
@@ -18,18 +16,19 @@ class ClienteController extends Controller implements ClienteInterface
   {
     parent::__construct();
     $this->setRouter($router);
+    $this->clienteService = new ClienteService();
   }
 
   /**
    * Método responsavel por Altera a senha do usuario
    * @return void
    */
-  function update(): void {
+  public function update(): void {
     header('Content-Type: application/json');
     
     if(count($_POST) > 0 ){
       
-      $data = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+      $data = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
       $json = [
         'data' => $data,
@@ -65,32 +64,11 @@ class ClienteController extends Controller implements ClienteInterface
     //   ["user_login"]=> string(12) DATA
     //   ["user_senha"]=> string(6) DATA
     // )
+   
+    $instance=$this->clienteService->cliente_validate_login($_POST);
+    
+    $message = $this->clienteService->create_gestao_login($instance);
 
-    $data = filter_var_array($_POST, FILTER_SANITIZE_STRING);
-
-    $user = (new User)->login($data);
-
-    if (!$user->success) {
-      $message = "Crendenciais invalidas";
-      $this->getRouter()->redirect("contato/{$message}");
-    }
-
-    $user = $user->user;
-
-    if (strcmp($user->tipoUsuario, 'cliente') == 0) {
-
-      $_SESSION['user_' . $user->tipoUsuario] = [
-        'id' => $user->idUser,
-        'tipoUser' => $user->tipoUsuario
-      ];
-
-      (new User)->ativarUser((int) $user->idUser, '1');
-
-      $message = "Usuário {$user->login}, logado com sucesso!";
-      $this->getRouter()->redirect("contato/{$message}");
-    }
-    // $message = "Usuario Invalido";
-    $message = "Usuario Invalido!!!";
     $this->getRouter()->redirect("contato/{$message}");
   }
 
@@ -142,7 +120,7 @@ class ClienteController extends Controller implements ClienteInterface
   public function store(array $data): void
   {
     // filtra as informação enviada via post
-    $new_cliente = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+    $new_cliente = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (in_array('', $new_cliente)) {
       $message = "error";
@@ -156,6 +134,7 @@ class ClienteController extends Controller implements ClienteInterface
     } else {
       $message = "error";
     }
+
     $this->getRouter()->redirect("cliente/cadastro/{$message}");
   }
 

@@ -163,10 +163,9 @@
                     <div class="form-group col-sm-6 col-md-5">
                         <label>Taxa Entrega</label>
                         <?php if ($detalhesPedido->formaEntregaPed == "Retirada") : ?>
-                            <input type="text" min="1" max="5" class="form-control money" name="taxa_entrega" id="taxa_entregaR" title="valores validos ex: 1.00, 5.00, 3 | valores invalidos ex: 1.50, 6.58, 2.99" disabled maxlength="5" placeholder="0.00" />
+                            <input type="text" min="1" max="5" class="form-control money" name="taxa_entrega" id="taxa_entregaR" title="valores validos ex: 1.00, 5.00, 3 | valores invalidos ex: 1.50, 6.58, 2.99" disabled maxlength="5" placeholder="0.00" value="0,00" />
                         <?php else : ?>
                             <input type="text" name="taxa_entrega" id="taxa_entregaE" class="form-control money" value="<?= $detalhesPedido->taxaEntregaPed ?>" required placeholder="0,00" maxlength="5" />
-
                         <?php endif; ?>
                     </div>
                     <div class="form-group col-sm-6 col-md-5">
