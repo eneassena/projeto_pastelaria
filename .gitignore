@@ -5,3 +5,4 @@ source/Models/dicionario.txt
 /fluxogramas.md
 /composer.lock
 .vscode
+.env.local

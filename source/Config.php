@@ -3,21 +3,30 @@
 use Source\Service\ConfigService;
 use Source\Service\PedidoService;
 
+use Symfony\Component\Dotenv\Dotenv;
+
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__.'/../.env.local');
+
 // www.meusite.com.br
 define("ROOT", "http://localhost/projeto_pastelaria");
 
 /** config de templates Cliente */
 define("PATH_TEMPLATE", dirname(__DIR__, 1).'/theme');
+
 /** config de template Admin */
 define("PATH_ADMINLTE_IMAGE", "https://adminlte.io/themes/v3");
+
 /** config arquivos statics */
 define("PATH_STATIC", dirname(__DIR__, 1).'/theme/assets');
+
 /** separador de caminhos de pastel/arq */
 define("DS", DIRECTORY_SEPARATOR);
+
 /** @var SITE: nome do site */
 define("SITE", "Pastelaria");
 
-
+/** variavel com configuração de rélogio por estado do pais */ 
 $timezones = array(
     'AC' => 'America/Rio_branco',   'AL' => 'America/Maceio',
     'AP' => 'America/Belem',        'AM' => 'America/Manaus',
@@ -41,20 +50,19 @@ define("TIMEZONE", date_default_timezone_set($timezones['BA']));
 
 /** constante de conexão de banco de dados */
 define("DATA_LAYER_CONFIG", [
-    "driver"    => "mysql",
-    "host"      => "127.0.0.1",
-    "port"      => 3306,
-    "dbname"    => "pastelaria_gaucho",
-    "username"  => "root",
-    "passwd"    => "Jose123_+#",
+    "driver"    => $_ENV['DB_DRIVER'],
+    "host"      => $_ENV['DB_HOST'],
+    "port"      => $_ENV['DB_PORT'],
+    "dbname"    => $_ENV['DB_NAME'],
+    "username"  => $_ENV['DB_USER'],
+    "passwd"    => $_ENV['DB_PASSWD'],
     "options"   => [
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
         PDO::ATTR_CASE => PDO::CASE_NATURAL
     ]
-]);
-
+]); 
 
 
 /**
