@@ -7,9 +7,7 @@ use Source\Controller\Cliente\Service\ClienteService;
 use Source\Models\site\User;
 
 
-class ClienteController extends Controller
-{
-
+class ClienteController extends Controller {
   /**
    * Contructor()
    * @return void
@@ -25,12 +23,12 @@ class ClienteController extends Controller
    * Método responsavel por Altera a senha do usuario
    * @return void
    */
-  function update(): void {
+  public function update(): void {
     header('Content-Type: application/json');
     
     if(count($_POST) > 0 ){
       
-      $data = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+      $data = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
       $json = [
         'data' => $data,
@@ -66,30 +64,12 @@ class ClienteController extends Controller
     //   ["user_login"]=> string(12) DATA
     //   ["user_senha"]=> string(6) DATA
     // )
-    $data = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-
-    $instance= (new User)->login($data);
-    // $instance = $this->clienteService->cliente_validate_login($_POST);
+   
+    $instance=$this->clienteService->cliente_validate_login($_POST);
     
+    $message = $this->clienteService->create_gestao_login($instance);
 
-    if (!$instance->success) {
-      $message = "Crendenciais invalidas";
-      $this->getRouter()->redirect("contato/{$message}");
-    }
-    if (strcmp($instance->user->tipoUsuario, 'cliente') == 0) {
-
-      $_SESSION['user_' . $instance->user->tipoUsuario] = [
-        'id' => $instance->user->idUser,
-        'tipoUser' => $instance->user->tipoUsuario
-      ];
- 
-      (new User)->ativarUser((int) $instance->user->idUser, '1');
-
-      $message = "Usuário {$instance->user->login}, logado com sucesso!";
-      $this->getRouter()->redirect("contato/{$message}");
-    }
-    $message = "Usuario Invalido!!!";
-    echo $this->getRouter()->redirect("contato/{$message}");
+    $this->getRouter()->redirect("contato/{$message}");
   }
 
   /**
@@ -140,7 +120,7 @@ class ClienteController extends Controller
   public function store(array $data): void
   {
     // filtra as informação enviada via post
-    $new_cliente = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+    $new_cliente = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (in_array('', $new_cliente)) {
       $message = "error";
@@ -154,6 +134,7 @@ class ClienteController extends Controller
     } else {
       $message = "error";
     }
+
     $this->getRouter()->redirect("cliente/cadastro/{$message}");
   }
 

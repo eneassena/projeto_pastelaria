@@ -205,7 +205,7 @@ class areaRestritaController extends Controller
    */
   public function store_pastel(): void
   {
-    $datasetPastel = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+    $datasetPastel = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $message = "Produto não foi encontrado!";
     $idPastel = isset($datasetPastel['idCardapioPastel']) ? (int)$datasetPastel['idCardapioPastel'] : 0;
@@ -316,7 +316,7 @@ class areaRestritaController extends Controller
   public function store_bebida(): void
   {
 
-    $dataFormPost = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+    $dataFormPost = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $this->restritaService->editar_bebida($dataFormPost);
 
@@ -375,7 +375,7 @@ class areaRestritaController extends Controller
       $this->router->redirect("area-restrita/login-admin/$message");
     }
 
-    $data = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+    $data = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
     $admin = (new User())->loginAdmin($data);
 

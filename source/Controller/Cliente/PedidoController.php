@@ -143,7 +143,7 @@ class PedidoController extends Controller
   public function caixa(): void
   { // verifica de há um usuário logado e se tiver obtem seu id da tabela cliente
     if (inFuncionamento()) {
-      $dataset = filter_var_array($_POST, FILTER_SANITIZE_STRING);
+      $dataset = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
       $pedido = (new \Source\Models\site\PedidoModel())->createNew($dataset);
 
