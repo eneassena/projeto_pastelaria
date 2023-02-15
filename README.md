@@ -1,7 +1,7 @@
 # pastelaria do gaúcho
 criação do site da pastelaria do gaúcho com a implementação de novos recursos por meio de tecnologias da atualidade e que permiter intregar um sistema que atende a necessidade do nosso cliente.
 
-### para utilizar clonar o projeto usamos o comando
+### para utilizar o projeto é preciso clonar e usamos o comando abaixo:
 $ `git clone https://github.com/eneassena/projeto_pastelaria.git`
 
 ### para obter a versão mais recente do projeto mude para branch renovacao com seguinte comando.
