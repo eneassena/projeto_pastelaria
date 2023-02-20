@@ -3,6 +3,8 @@
 namespace Source\Controller\Cliente;
 
 use CoffeeCode\Router\Router;
+use Source\Models\site\User;
+use CoffeeCode\DataLayer\Connect;
 
 class HomeController extends Controller
 {

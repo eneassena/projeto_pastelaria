@@ -30,12 +30,6 @@ $route->get("/contato/{message}", "HomeController:home", "name.home");
 
 
 
-/**
- * ERROR
- * Ex: www.site.com/ops/args
- */
-$route->group("ops");
-$route->get("/{errcode}", "HomeController:error");
 
 
 /**
@@ -43,7 +37,10 @@ $route->get("/{errcode}", "HomeController:error");
  * Ex: www.site.com/sobre
  */
 $route->group('sobre');
-$route->get('/', "SobreController:home", "name.sobre");
+$route->get('/', function(){
+
+});
+// $route->get('/', "SobreController:home", "name.sobre");
 
 
 
@@ -151,6 +148,14 @@ if(isset($_SESSION['user_superuser'])){
     // logout
     $route->get("/logout", "areaRestritaController:logout", "auth.logout");
 }
+
+/**
+ * ERROR
+ * Ex: www.site.com/ops/args
+ */
+$route->group("ops");
+$route->get("/{errcode}", "HomeController:error");
+
 
 /**
  * PROCESS

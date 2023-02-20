@@ -38,7 +38,7 @@ class PedidoController extends Controller
 
   public function home(array $data): void
   {
-    $this->init();
+    // $this->init();
 
     $this->setData('message', isset($data['message']) ? $data['message'] : '');
 

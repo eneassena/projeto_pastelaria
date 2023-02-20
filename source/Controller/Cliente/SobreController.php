@@ -9,7 +9,7 @@ class SobreController extends Controller
 
   public function __construct()
   {
-    parent::__construct();
+    // parent::__construct();
   }
 
   /**
@@ -17,9 +17,9 @@ class SobreController extends Controller
    */
   public function home(): void
   {
-    $this->setData('title', SITE . " | Sobre"); 
+    // $this->setData('title', SITE . " | Sobre"); 
 
-    echo $this->getTemplate()->render("site/sobre", $this->getData());
+    // echo $this->getTemplate()->render("site/sobre", $this->getData());
   }
 
   /**
