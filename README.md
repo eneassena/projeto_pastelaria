@@ -8,7 +8,7 @@ $ `git clone https://github.com/eneassena/projeto_pastelaria.git`
 $ `composer update`
 Este comando irá instalar os pacote que são dependencias do projeto
 
-## no arquivo Config.php realize as configurações necessário para o projeto.
+## no arquivo `Source/Config.php` realize as configurações necessário para o projeto.
 
 Após o projeto ser configurado lembremos que o projeto deve esta dentro da pasta C:/xampp/htdocs/meu-projeto, com o serve ativo acesse a url http://localhost/meu-projeto
 
