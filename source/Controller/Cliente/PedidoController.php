@@ -14,6 +14,8 @@ use Source\Service\PedidoService;
 
 class PedidoController extends Controller
 {
+  public $lojaService = null;
+
   public function __construct(Router $router)
   {
     parent::__construct();
@@ -53,8 +55,6 @@ class PedidoController extends Controller
    */
   public function add_pastel(array $params): void
   {
-
-
     if (inFuncionamento()) {
       $message  = $this->lojaService->adicionar_items(
         (int) $params['idProduto'],

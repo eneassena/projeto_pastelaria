@@ -8,51 +8,19 @@ use Source\Models\site\User;
 
 
 class ClienteController extends Controller {
+  public $clienteService = null;
+  
   /**
    * Contructor()
    * @return void
    */
   public function __construct(Router $router)
   {
-    parent::__construct();
     $this->setRouter($router);
     $this->clienteService = new ClienteService();
+    parent::__construct();
   }
-
-  /**
-   * Método responsavel por Altera a senha do usuario
-   * @return void
-   */
-  public function update(): void {
-    header('Content-Type: application/json');
-    
-    if(count($_POST) > 0 ){
-      
-      $data = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-
-      $json = [
-        'data' => $data,
-        'user' => null
-      ];
-      
-      $user = (new User)->find("login= :log", "log=". $data['login'])->fetch();
-
-      $json['user'] = $user->data();
-
-      $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-      $user->data()->senha = $data['password'];
-
-      $json['update'] = $user->save();
-
-      echo json_encode($json);
-
-      http_response_code(200);
-    } else {
-      http_response_code(404);
-    }
-  }
-
+ 
   /**
    * Método responsavel por validar o login do usuario
    * @param array[$data]

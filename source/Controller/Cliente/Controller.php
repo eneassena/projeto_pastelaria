@@ -9,25 +9,25 @@ use League\Plates\Engine;
 abstract class Controller
 {
   /** @var Engine[$template] */
-  private $template = null;
+  protected $template = null;
 
   /** @var array[$data] */
-  private $data = null;
+  protected $data = null;
   
   /** @var Router[$router] */
-  private $router = null;
+  protected $router = null;
 
 
   /**
    * @return Engine
    */
-  public function getTemplate() {
+  protected function getTemplate() {
     return $this->template;
   }
   /**
    * @return array
    */
-  public function getData() {
+  protected function getData() {
     return $this->data;
   }
 
@@ -36,14 +36,14 @@ abstract class Controller
    * @param [$value]
    * @return void
    */
-  public function setData(string $key, $value):void {
+  protected function setData(string $key, $value):void {
     $this->data[$key] = $value;
   }
   
   /**
    * @return Router
    */
-  public function getRouter(): Router {
+  protected function getRouter(): Router {
     return $this->router;
   }
 
@@ -51,11 +51,11 @@ abstract class Controller
    * @param Router[$router]
    * @return void
    */
-  public function setRouter(Router $router): void {
+  protected function setRouter(Router $router): void {
     $this->router = $router;
   }
 
-  public function __construct()
+  protected function __construct()
   {
     $this->start();
   }
@@ -63,7 +63,7 @@ abstract class Controller
   /**
    * @return void
    */
-  public function start(): void
+  private function start(): void
   {
     $this->template = new Engine(PATH_TEMPLATE, 'php');
     $this->data = [];

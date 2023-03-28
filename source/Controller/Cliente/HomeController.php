@@ -6,7 +6,6 @@ use CoffeeCode\Router\Router;
 
 class HomeController extends Controller
 {
-
 	public function __construct(Router $router)
 	{
 		parent::__construct(); 
