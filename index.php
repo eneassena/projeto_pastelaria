@@ -7,8 +7,6 @@ use CoffeeCode\DataLayer\Connect;
 
 
 session_start();
-//var_dump(session_regenerate_id());
-//var_dump($_SESSION);
  
 $route = new Router(ROOT);
  

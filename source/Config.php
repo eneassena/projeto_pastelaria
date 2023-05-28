@@ -177,7 +177,9 @@ function getProdutos(string $name_cart): array {
  * para solicitação de um novo pedido pelo cliente
  */
 function inFuncionamento(): bool {
-    $horas = (int) date('H');
+    return false;
+    
+    /*$horas = (int) date('H');
     $minutos = (int) date('i');
 
     if($horas > 16 && $horas <= 23){
@@ -187,5 +189,5 @@ function inFuncionamento(): bool {
         return true;
     }
 
-    return false;
+    return false;*/
 }
