@@ -5,7 +5,7 @@ criação do site da pastelaria do gaúcho com a implementação de novos recurs
 $ `git clone https://github.com/eneassena/projeto_pastelaria.git`
 
 ## Nesse momento você está com versão atualizada, dentro da pasta do projeto execute o seguinte comando.
-$ `composer update`
+$ `composer install`
 Este comando irá instalar os pacote que são dependencias do projeto
 
 ## no arquivo `Source/Config.php` realize as configurações necessário para o projeto.
