@@ -6,3 +6,5 @@ source/Models/dicionario.txt
 /composer.lock
 .vscode
 .env.local
+/nbproject
+anotacao.txt

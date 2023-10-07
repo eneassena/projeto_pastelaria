@@ -21,6 +21,7 @@
         "coffeecode/router": "1.0.*",
         "league/plates": "3.*",
         "phpunit/phpunit": "^9.5",
-        "symfony/dotenv": "^6.1"
+        "symfony/dotenv": "^6.3"
+        
     }
 }
