@@ -157,7 +157,9 @@ function user_load() {
  * @return void
  */
 function dd(array $info = [], int $flag = 1): void {
-    ConfigService::dd($info, $flag);
+    // ConfigService::dd($info, $flag);
+    echo '<pre>';
+    var_dump($info);
 }
 
 /**

@@ -6,7 +6,7 @@ use CoffeeCode\Router\Router;
 use CoffeeCode\DataLayer\Connect;
 
 
-session_start();
+// session_start();
 //var_dump(session_regenerate_id());
 //var_dump($_SESSION);
  
@@ -19,7 +19,7 @@ if( $e){
     die;
 }
 
-
+die;
 /**
  * APP
  */

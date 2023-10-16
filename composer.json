@@ -17,8 +17,8 @@
     },
     "require": {
         "ext-pdo": "*",
-        "coffeecode/datalayer": "1.1.*",
-        "coffeecode/router": "1.0.*",
+        "coffeecode/datalayer": "2.0.*",
+        "coffeecode/router": "2.0.*",
         "league/plates": "3.*",
         "phpunit/phpunit": "^9.5",
         "symfony/dotenv": "^6.3"

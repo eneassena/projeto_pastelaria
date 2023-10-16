@@ -4,25 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b29b8562476a8526eda6fca1bc04db0b",
+    "content-hash": "3f58e2ee42d40b05e96d8ee25744b755",
     "packages": [
         {
             "name": "coffeecode/datalayer",
-            "version": "1.1.8",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robsonvleite/datalayer.git",
-                "reference": "52e209190752eccc0bfd8ff3abcdd607ed4c01c1"
+                "reference": "619eb838783a3d2488d98f8a879dd772e62b444f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robsonvleite/datalayer/zipball/52e209190752eccc0bfd8ff3abcdd607ed4c01c1",
-                "reference": "52e209190752eccc0bfd8ff3abcdd607ed4c01c1",
+                "url": "https://api.github.com/repos/robsonvleite/datalayer/zipball/619eb838783a3d2488d98f8a879dd772e62b444f",
+                "reference": "619eb838783a3d2488d98f8a879dd772e62b444f",
                 "shasum": ""
             },
             "require": {
                 "ext-pdo": "*",
-                "php": ">=7.2"
+                "php": ">=8.0"
             },
             "type": "library",
             "autoload": {
@@ -42,7 +42,7 @@
                 }
             ],
             "description": "The data layer is a persistent abstraction component of your database that PDO",
-            "homepage": "http://www.upinside.com.br",
+            "homepage": "https://www.upinside.com.br",
             "keywords": [
                 "Coffeecode",
                 "crud",
@@ -55,26 +55,26 @@
             ],
             "support": {
                 "issues": "https://github.com/robsonvleite/datalayer/issues",
-                "source": "https://github.com/robsonvleite/datalayer/tree/1.1.8"
+                "source": "https://github.com/robsonvleite/datalayer/tree/2.0.7"
             },
-            "time": "2021-03-21T14:00:57+00:00"
+            "time": "2023-01-17T16:36:21+00:00"
         },
         {
             "name": "coffeecode/router",
-            "version": "1.0.8",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robsonvleite/router.git",
-                "reference": "29f73e12351a116e9bbb3f695595777a09e18077"
+                "reference": "a16770ae952ce3f91a04035a09be610a030e049c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robsonvleite/router/zipball/29f73e12351a116e9bbb3f695595777a09e18077",
-                "reference": "29f73e12351a116e9bbb3f695595777a09e18077",
+                "url": "https://api.github.com/repos/robsonvleite/router/zipball/a16770ae952ce3f91a04035a09be610a030e049c",
+                "reference": "a16770ae952ce3f91a04035a09be610a030e049c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": ">=8.0"
             },
             "type": "library",
             "autoload": {
@@ -104,9 +104,9 @@
             ],
             "support": {
                 "issues": "https://github.com/robsonvleite/router/issues",
-                "source": "https://github.com/robsonvleite/router/tree/1.0.8"
+                "source": "https://github.com/robsonvleite/router/tree/2.0.2"
             },
-            "time": "2021-03-21T18:45:16+00:00"
+            "time": "2022-04-23T16:01:23+00:00"
         },
         {
             "name": "doctrine/instantiator",
