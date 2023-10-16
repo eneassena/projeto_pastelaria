@@ -2,10 +2,10 @@ import mysql.connector
 import functions_query 
  
 config = {
-	'user': 'root',
-	'password':'Jose123_+#',
-	'host':'127.0.0.1',
- 	'database': 'pastelaria_gaucho',
+	'user': '***********',
+	'password':'***********',
+	'host':'***********',
+ 	'database': '***********',
 	'raise_on_warnings': True
 }
 
