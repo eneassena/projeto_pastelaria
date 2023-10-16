@@ -14,6 +14,7 @@ use Source\Service\PedidoService;
 
 class PedidoController extends Controller
 {
+  protected $lojaService = null;
   public function __construct(Router $router)
   {
     parent::__construct();
