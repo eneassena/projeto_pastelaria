@@ -1,4 +1,4 @@
-<?php $this->layout("_layout", ['title' => $title]); ?>
+<?php $this->layout("clients/_layout", ['title' => $title]); ?>
 
 <!-- exibe mensagens enviada do controller -->
 <?php if (isset($message) && count($message)) : ?>
@@ -23,4 +23,4 @@
 
 </div>
 
-<?php $this->insert('fragmentos/home/home.cards.part') ?>
+<?php $this->insert('clients/fragmentos/home/home.cards.part') ?>

@@ -11,6 +11,7 @@ use Source\Models\site\PedidoModel;
 
 class VerPedidoController extends Controller
 {
+  private $filePathPage = 'clients/ver_pedido';
   protected $title = "Ver Pedido";
 
   public function __construct()
@@ -39,8 +40,8 @@ class VerPedidoController extends Controller
     $this->setData('messagem_pedido_invalido', (isset($data['message']) && !empty($data['message'])) ? $data['message'] : '');
 
     $this->setData('title', $this->title);
-
-    return $this->template->render("ver_pedido", $this->getData());
+    
+    return $this->template->render($this->filePathPage, $this->getData());
   }
  
   /**

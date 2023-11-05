@@ -43,7 +43,7 @@
                             </li> -->
                             <li class="nav-item"><a title="Ver Pedidos" class="nav-link text-white" id="verPedidoPage" href="<?= url('ver-pedido'); ?>">Lista Espera</a>
                             <li class="nav-item">
-                                <a title="Fazer Pedido" class="nav-link text-white" id="pedidoPage" href="<?= url('pedido'); ?>">Cardápio</a>
+                                <a title="Fazer Pedido" class="nav-link text-white" id="pedidoPage" href="<?= url('order'); ?>">Cardápio</a>
                             </li>
     
                             <?php if (isset($_SESSION['admin'])) : ?>
@@ -71,7 +71,7 @@
                 </nav>
     
                 <!-- - DIV DE LOGIN ------------->
-                <?php $this->insert('forms/form_login') ?>
+                <?php $this->insert('clients/forms/form_login') ?>
             <?php endif; ?>
         </nav>
     </header>

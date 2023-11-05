@@ -88,7 +88,7 @@
               <div class="col-md-12">
                   <div class="card">
                       <div class="card-body">
-                          <h5 class="text-muted">Total R$: <span><?= \Source\Service\LojaService::calc_total() ?></span></h5>
+                          <h5 class="text-muted">Total R$: <span><?= \Src\service\StoreService::calc_total() ?></span></h5>
                       </div>
                   </div>
 

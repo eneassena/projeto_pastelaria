@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class HomeController extends Controller
 {
     public $title = "Home";
+    private $filePathPage = 'clients/home';
 
     public function __construct()
     {
@@ -28,6 +29,6 @@ class HomeController extends Controller
 
         $this->setData('title', $this->title);
 
-        return $this->template->render('home', $this->getData());
+        return $this->template->render($this->filePathPage, $this->getData());
     }
 }

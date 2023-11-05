@@ -5,7 +5,8 @@ use Slim\Factory\AppFactory;
 use Src\controllers\cliente\HomeController;
 use Src\controllers\cliente\AboutController;
 use Src\controllers\cliente\VerPedidoController;
-use Src\controllers\cliente\PedidoController;
+use Src\controllers\cliente\OrderController;
+ 
 
 $app = AppFactory::create();
 
@@ -14,7 +15,8 @@ $app->setBasePath('/projeto_pastelaria');
 $app->get('/', [HomeController::class, 'render']);
 $app->get('/sobre', [AboutController::class, 'render']);
 $app->get('/ver-pedido', [VerPedidoController::class, 'render']);
-$app->get('/pedido', [PedidoController::class, 'render']);
+$app->get('/order', [OrderController::class, 'render']);
+$app->get('/order/add/pastel/{id}', [OrderController::class, 'add_pastel']);
 
 
 

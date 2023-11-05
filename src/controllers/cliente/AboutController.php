@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class AboutController extends Controller {
   protected $title = "About";
+  private $filePathPage = 'clients/about';
 
   public function __construct() {
     parent::__construct();
@@ -27,8 +28,8 @@ class AboutController extends Controller {
 
   public function getPage(): string {
     $this->setData('title', SITE . " | About");
-
-    return $this->getTemplate()->render("sobre", $this->getData());
+ 
+    return $this->getTemplate()->render($this->filePathPage, $this->getData());
     
   }
 

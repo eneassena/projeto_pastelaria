@@ -36,7 +36,7 @@
               <td><?= $cardapio->valorUnitario; ?></td>
               <td>
                 <a class='text-success <?= 'addPastel'.$cardapio->idCardapioPastel ?>'
-                  href="<?= inFuncionamento() ? url('pedido/add-pastel') . "/" . $cardapio->idCardapioPastel : '#' ?>"
+                  href="<?= inFuncionamento() ? url('order/add/pastel') . "/" . $cardapio->idCardapioPastel : '#' ?>"
                 >
                   Adicionar
                 </a>

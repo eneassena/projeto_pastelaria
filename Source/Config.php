@@ -163,7 +163,7 @@ function dd(array $info = [], int $flag = 1): void
  */
 function getProdutos(string $name_cart): array
 {
-    $data = \Source\Service\LojaService::show_carrinho($name_cart);
+    $data = \Src\service\StoreService::show_carrinho($name_cart);
 
     return $data;
 }
@@ -176,7 +176,7 @@ function getProdutos(string $name_cart): array
  */
 function inFuncionamento(): bool
 {
-    return false;
+    return true;
 
     /*$horas = (int) date('H');
     $minutos = (int) date('i');
