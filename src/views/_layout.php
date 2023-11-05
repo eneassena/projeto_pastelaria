@@ -9,11 +9,10 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="<?= assets('css/opcao.css') ?>">
-    <link rel="stylesheet" href="<?= assets('css/site/home.css') ?>">
-    <link rel="stylesheet" href="<?= assets('css/bootstrap.min.css') ?>">
-
-    <link rel="shortcut icon" href="<?= assets('image/favicon.ico') ?>" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/opcao.css">
+    <link rel="stylesheet" href="assets/css/site/home.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -27,7 +26,7 @@
     
                     <div class="">
                       <a class="navbar-brand h1 mb-0" href="<?= url() ?>">
-                          <img src="<?= assets('assets/image/logo.png') ?>" alt="" width="30" height="30">
+                          <img src="<?= assets('image/logo.png') ?>" alt="" width="30" height="30">
                       </a>
                     </div>
     
@@ -72,7 +71,7 @@
                 </nav>
     
                 <!-- - DIV DE LOGIN ------------->
-                <?php $this->insert('site/forms/form_login') ?>
+                <?php $this->insert('forms/form_login') ?>
             <?php endif; ?>
         </nav>
     </header>
@@ -129,16 +128,15 @@
         </div>
     </footer>
 
-    <script src="<?= assets('assets/js/jquery.min.js'); ?>" type="text/javascript"></script>
-    <script src="<?= assets('assets/jquery-mask/dist/jquery.mask.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?= assets('js/jquery.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?= assets('js/jquery.mask.min.js'); ?>" type="text/javascript"></script>
 
-    <script src="<?= assets('assets/js/sweetalert2.all.min.js'); ?>" type="text/javascript"></script>
-    <script src="<?= assets('assets/js/bootstrap.bundle.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?= assets('js/sweetalert2.all.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?= assets('js/bootstrap.bundle.min.js'); ?>" type="text/javascript"></script>
 
-    <script src="<?= assets('assets/js/site/cliente.js'); ?>" type="text/javascript"></script>
-    <script src="<?= assets('assets/js/site/home.js'); ?>" type="text/javascript"></script>
-    <script src="<?= assets('assets/js/site/pedido.js'); ?>" type="text/javascript"></script>
-    <script src="<?= assets('assets/js/refresh.js'); ?>" type="text/javascript"></script>
+    <script src="<?= assets('js/cliente.js'); ?>" type="text/javascript"></script>
+    <script src="<?= assets('js/home.js'); ?>" type="text/javascript"></script>
+    <script src="<?= assets('js/pedido.js'); ?>" type="text/javascript"></script>
 
     <?= $this->section('script'); ?>
 

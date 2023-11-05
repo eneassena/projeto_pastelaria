@@ -6,19 +6,19 @@ use Source\Service\PedidoService;
 use Symfony\Component\Dotenv\Dotenv;
 
 $dotenv = new Dotenv();
-$dotenv->load(__DIR__.'/../.env.local');
+$dotenv->load(__DIR__ . '/../.env.local');
 
 // www.meusite.com.br
 define("ROOT", "http://localhost/projeto_pastelaria");
 
 /** config de templates Cliente */
-define("PATH_TEMPLATE", dirname(__DIR__, 1).'/theme');
+define("PATH_TEMPLATE", dirname(__DIR__, 1) . '/theme');
 
 /** config de template Admin */
 define("PATH_ADMINLTE_IMAGE", "https://adminlte.io/themes/v3");
 
 /** config arquivos statics */
-define("PATH_STATIC", dirname(__DIR__, 1).'/theme/assets');
+define("PATH_STATIC", dirname(__DIR__, 1) . '/src/assets');
 
 /** separador de caminhos de pastel/arq */
 define("DS", DIRECTORY_SEPARATOR);
@@ -26,7 +26,7 @@ define("DS", DIRECTORY_SEPARATOR);
 /** @var SITE: nome do site */
 define("SITE", "Pastelaria");
 
-/** variavel com configuração de rélogio por estado do pais */ 
+/** variavel com configuração de rélogio por estado do pais */
 $timezones = array(
     'AC' => 'America/Rio_branco',   'AL' => 'America/Maceio',
     'AP' => 'America/Belem',        'AM' => 'America/Manaus',
@@ -62,7 +62,7 @@ define("DATA_LAYER_CONFIG", [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
         PDO::ATTR_CASE => PDO::CASE_NATURAL
     ]
-]); 
+]);
 
 
 /**
@@ -82,13 +82,7 @@ function url(string $uri = null): string
  */
 function assets(string $uri = null): string
 {
-    $path_public = ROOT . "/theme";
-
-    if ($uri) {
-        return $path_public . "/{$uri}";
-    }
-
-    return $path_public;
+    return "assets/{$uri}";
 }
 
 /**
@@ -96,13 +90,14 @@ function assets(string $uri = null): string
  * @param float[$quantidade]
  * @return float
  */
- function calcular_total_item(float $valor, float $quantidade) {
+function calcular_total_item(float $valor, float $quantidade)
+{
     $total = $valor * $quantidade;
 
     $total = formata_precos($total);
 
     return $total;
- }
+}
 
 /**
  * Formata um valor float e retorna no formado para exibição em tela
@@ -110,7 +105,7 @@ function assets(string $uri = null): string
  * @param float $preco
  * @return float
  */
-function formata_precos($preco=''): string
+function formata_precos($preco = ''): string
 {
     return number_format((float)$preco, 2, ',', '.');
 }
@@ -119,21 +114,19 @@ function valida_exibicao(array $data): bool
 {
     return isset($data) && count($data) > 0;
 }
- 
+
 /**
  * @param string[$recurso] = ''
  */
-function valida_pastels(string $recurso='')
+function valida_pastels(string $recurso = '')
 {
     $return = false;
 
-    if(!inFuncionamento()) return false;
+    if (!inFuncionamento()) return false;
 
-    if (isset($_SESSION['cart'][$recurso]))
-    {
+    if (isset($_SESSION['cart'][$recurso])) {
         $total = 0;
-        foreach ($_SESSION['cart'][$recurso] as $id_item => $value)
-        {
+        foreach ($_SESSION['cart'][$recurso] as $id_item => $value) {
             $total += $value['qtd'];
         }
         $return = ($total >= 3) ? true : false;
@@ -145,18 +138,20 @@ function valida_pastels(string $recurso='')
  * Helper buscar o codigo do usuario logado
  *
  */
-function user_load() {
+function user_load()
+{
     return (new PedidoService)->user_logado();
 }
 
- 
+
 
 /**
  * @param array[$info] = []
  * @param int[$flag] = 1
  * @return void
  */
-function dd(array $info = [], int $flag = 1): void {
+function dd(array $info = [], int $flag = 1): void
+{
     // ConfigService::dd($info, $flag);
     echo '<pre>';
     var_dump($info);
@@ -166,7 +161,8 @@ function dd(array $info = [], int $flag = 1): void {
  * @param string[$name_cart]
  * @return array
  */
-function getProdutos(string $name_cart): array {
+function getProdutos(string $name_cart): array
+{
     $data = \Source\Service\LojaService::show_carrinho($name_cart);
 
     return $data;
@@ -178,9 +174,10 @@ function getProdutos(string $name_cart): array {
  * Metodo responsável por verificar o horários de funcionamento da loja
  * para solicitação de um novo pedido pelo cliente
  */
-function inFuncionamento(): bool {
+function inFuncionamento(): bool
+{
     return false;
-    
+
     /*$horas = (int) date('H');
     $minutos = (int) date('i');
 
