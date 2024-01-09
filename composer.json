@@ -9,8 +9,7 @@
     }],
     "autoload": {
         "psr-4": {
-            "Source\\": "Source/",
-            "Src\\": "src/"
+            "Source\\": "Source/"
         },
         "files": [
             "Source/Config.php"
@@ -22,11 +21,6 @@
         "coffeecode/router": "2.0.*",
         "league/plates": "3.*",
         "phpunit/phpunit": "^9.5",
-        "symfony/dotenv": "^6.3",
-        "slim/slim":"4.*",
-        "slim/psr7": "^1.6",
-        "nyholm/psr7": "^1.8",
-        "nyholm/psr7-server": "^1.0"
-        
+        "symfony/dotenv": "^6.3"
     }
 }

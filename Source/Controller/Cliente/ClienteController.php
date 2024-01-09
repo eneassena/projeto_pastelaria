@@ -5,11 +5,12 @@ namespace Source\Controller\Cliente;
 use CoffeeCode\Router\Router;
 use Source\Controller\Cliente\Service\ClienteService;
 use Source\Models\site\User;
+use Src\models\User as ModelsUser;
 
-
-class ClienteController extends Controller {
+class ClienteController extends Controller
+{
   public $clienteService = null;
-  
+
   /**
    * Contructor()
    * @return void
@@ -20,7 +21,7 @@ class ClienteController extends Controller {
     $this->clienteService = new ClienteService();
     parent::__construct();
   }
- 
+
   /**
    * Método responsavel por validar o login do usuario
    * @param array[$data]
@@ -32,9 +33,9 @@ class ClienteController extends Controller {
     //   ["user_login"]=> string(12) DATA
     //   ["user_senha"]=> string(6) DATA
     // )
-   
-    $instance=$this->clienteService->cliente_validate_login($_POST);
-    
+
+    $instance = $this->clienteService->cliente_validate_login($_POST);
+
     $message = $this->clienteService->create_gestao_login($instance);
 
     $this->getRouter()->redirect("contato/{$message}");
@@ -52,7 +53,7 @@ class ClienteController extends Controller {
 
     if (isset($_SESSION['user_cliente'])) $keyUser = 'user_cliente';
 
-    (new User)->ativarUser( (int) $_SESSION[$keyUser]['id'] , '0');
+    (new ModelsUser)->ativarUser((int) $_SESSION[$keyUser]['id'], '0');
 
     switch ($keyUser) {
       case 'user_cliente':
@@ -94,7 +95,7 @@ class ClienteController extends Controller {
       $message = "error";
     }
 
-    $user_new = (new User)->create_user_cliente($new_cliente);
+    $user_new = (new ModelsUser)->create_user_cliente($new_cliente);
 
     // create_user_cliente
     if ($user_new->success) {

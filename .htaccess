@@ -1,4 +1,4 @@
-#RewriteEngine On
+RewriteEngine On
 #Options All -Indexes
 
 ## ROUTER WWW Redirect.
@@ -11,10 +11,6 @@
 #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # ROUTER URL Rewrite
-#RewriteCond %{SCRIPT_FILENAME} !-f
-#RewriteCond %{SCRIPT_FILENAME} !-d
-#RewriteRule ^(.*)$ /projeto_pastelaria/index.php?route=/$1
-
-RewriteEngine on
-RewriteRule ^$ public/ [L]
-RewriteRule (.*) public/$1 [L]
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?route=/$1 [L,QSA]
