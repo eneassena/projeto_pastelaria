@@ -70,30 +70,27 @@ class LojaService
      * @return string
      */
     public function adicionar_items(int $idProduto, array $cart): string
-    {// produto|  codigoItem
+    { // produto|  codigoItem
         $this->criar_carrinho();
 
-        $this->data['message'] = 'Produto não foi encontrado';
+        $this->data['message'] = 'Produto-não-foi-encontrado';
 
         $produto = self::factoryProduct($cart['produto'], $idProduto);
 
-        if($produto){
+        if ($produto) {
             $carrinho = $_SESSION['cart'][$cart['produto']];
             $this->data['hasProduto'] = false;
 
-            if(count($carrinho) != 0)
-            {
-                foreach ($carrinho as $row => $value)
-                {
-                    if($carrinho[$row]['item']->{$cart['codigoItem']} == $produto->{$cart['codigoItem']} )
-                    {
+            if (count($carrinho) != 0) {
+                foreach ($carrinho as $row => $value) {
+                    if ($carrinho[$row]['item']->{$cart['codigoItem']} == $produto->{$cart['codigoItem']}) {
                         $this->data['hasProduto'] = true;
 
-                        if($carrinho[$row]["qtd"] <= 5 ) {
+                        if ($carrinho[$row]["qtd"] <= 5) {
                             $carrinho[$row]["qtd"]++;
-                            $this->data['message'] = "O produto, {$value['item']->{$cart['attributeName']}} teve + 1 unidade adicionado";
+                            $this->data['message'] = "Produto-adicionar-(+1)-unidade";
                         } else {
-                            $this->data['message'] = "oooppss limite maximo para esse produto pois já ultrapassa 5 unidade";
+                            $this->data['message'] = "oooppss-limite-maximo-para-esse-produto-pois-já-ultrapassa-5-unidade";
                         }
                         $_SESSION['cart'][$cart['produto']] = $carrinho;
                         break;
@@ -101,8 +98,7 @@ class LojaService
                 }
             }
 
-            if(!$this->data['hasProduto'])
-            {
+            if (!$this->data['hasProduto']) {
                 array_push($carrinho, [
                     "item" => $produto->data(), "qtd" => 1
                 ]);
@@ -128,13 +124,13 @@ class LojaService
 
         $cartProduto = $_SESSION['cart'][$cart['produto']];
 
-        if(is_array($cartProduto) && count($cartProduto) != 0){
-            foreach($cartProduto as $row => $value) {
-                if((int)$cartProduto[$row]['item']->{$cart['codigoItem']} == $idProduto) {
-                    if((int)$cartProduto[$row]['qtd'] > 1) {
+        if (is_array($cartProduto) && count($cartProduto) != 0) {
+            foreach ($cartProduto as $row => $value) {
+                if ((int)$cartProduto[$row]['item']->{$cart['codigoItem']} == $idProduto) {
+                    if ((int)$cartProduto[$row]['qtd'] > 1) {
                         // produto teve 1 unidade removida
                         $this->data['message'] = "O produto {$value['item']->{$cart['attributeName']}} teve 1 unidade removida";
-                        $cartProduto[$row]['qtd'] --;
+                        $cartProduto[$row]['qtd']--;
                     } else {
                         // produto foi removido
                         $this->data['message'] = "O produto, {$value['item']->{$cart['attributeName']}} foi removido";
@@ -142,7 +138,9 @@ class LojaService
                     }
                     $_SESSION['cart'][$cart['produto']] = $cartProduto;
                     break;
-                } else { $this->data['message'] = 'falha ao remover o produto'; }
+                } else {
+                    $this->data['message'] = 'falha ao remover o produto';
+                }
             }
         }
 
@@ -170,9 +168,8 @@ class LojaService
      */
     public function calcular_valor_total(
         string $name_carrinho = 'pastel',
-        array $cart=['attributeName'=> 'valorUnitario']
-    ): int|float
-    {
+        array $cart = ['attributeName' => 'valorUnitario']
+    ): int|float {
         if (!isset($_SESSION['cart'][$name_carrinho])) {
             return 0;
         }
@@ -182,7 +179,6 @@ class LojaService
             $total += (int)$value['qtd'] * (float)$value['item']->{$cart['attributeName']};
 
         return $total;
-
     }
 
     /**
