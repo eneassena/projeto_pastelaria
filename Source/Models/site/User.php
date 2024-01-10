@@ -1,7 +1,7 @@
 <?php
 
 namespace Source\Models\site;
- 
+
 
 class User extends \CoffeeCode\DataLayer\DataLayer
 {
@@ -18,7 +18,7 @@ class User extends \CoffeeCode\DataLayer\DataLayer
     {
         parent::__construct('users', ['nome', 'telefone', 'tipoUsuario'], 'idUser');
     }
- 
+
     /**
      * Método responsável por cria um novo cliente com login e senha
      * */
@@ -27,10 +27,8 @@ class User extends \CoffeeCode\DataLayer\DataLayer
 
         $user_exists = $this->find("login=:log", "log={$data['user_login']}")->fetch();
 
-        if(is_null($user_exists))
-        {
-            if(strlen($data['user_login']) == 0 && strlen($data['user_senha']) == 0)
-            {
+        if (is_null($user_exists)) {
+            if (strlen($data['user_login']) == 0 && strlen($data['user_senha']) == 0) {
                 $this->success = false;
                 return $this;
             }
@@ -54,7 +52,6 @@ class User extends \CoffeeCode\DataLayer\DataLayer
 
             $this->success = true;
             return $this;
-
         } else {
             $this->success = false;
             return $this;
@@ -79,14 +76,12 @@ class User extends \CoffeeCode\DataLayer\DataLayer
      * */
     public function create_user_comun(array $data): User
     { // 'cliente|superuser|empreendedor|comun'
-        if(empty($data['nome']) || empty($data['telefone']) )
-        {
+        if (empty($data['nome']) || empty($data['telefone'])) {
             $this->success = false;
             return $this;
-        } else
-        {
-            $this->nome =$data['nome'];
-            $this->telefone =$data['telefone'];
+        } else {
+            $this->nome = $data['nome'];
+            $this->telefone = $data['telefone'];
             $this->tipoUsuario = $data['tipoUsuario'];
             return $this;
         }
@@ -97,7 +92,7 @@ class User extends \CoffeeCode\DataLayer\DataLayer
      * */
     public function create_endereco_user(array $data): User
     {
-        if(empty($data['bairro']) || empty($data['numero']) || empty($data['complemento']) ){
+        if (empty($data['bairro']) || empty($data['numero']) || empty($data['complemento'])) {
             $this->success = false;
             return $this;
         } else {
@@ -128,8 +123,8 @@ class User extends \CoffeeCode\DataLayer\DataLayer
     { // 'cliente|superuser|empreendedor|comun'
 
         $adm = $this->find("login=:log", "log={$data['user_login']}")->fetch();
-        
-        if(!$adm){
+
+        if (!$adm) {
             $this->create_user_comun([
                 'nome' => $data['nome'],
                 'telefone' => $data['celular'],
@@ -157,7 +152,7 @@ class User extends \CoffeeCode\DataLayer\DataLayer
     public function showUser(int $iduser): User
     {
         $user = $this->findById($iduser);
-        if($user){
+        if ($user) {
             $end = (new EnderecoUserModel())->buscarEndereco($user->data()->idUser);
             $this->detalhes                 = new \stdClass();
             $this->detalhes->idUser         = $user->idUser;
@@ -178,15 +173,13 @@ class User extends \CoffeeCode\DataLayer\DataLayer
      * */
     public function login(array $data): User
     {
-        if(!empty($data['user_login']) && !empty($data['user_senha']))
-        {
+        if (!empty($data['user_login']) && !empty($data['user_senha'])) {
             $user = $this->find("login=:data_login", "data_login={$data['user_login']}")->fetch();
-            if($user)
-            {
-                if(
-                    password_verify($data['user_senha'], $user->data()->senha ) &&
-                    $user->data()->tipoUsuario === 'cliente')
-                { 
+            if ($user) {
+                if (
+                    password_verify($data['user_senha'], $user->data()->senha) &&
+                    $user->data()->tipoUsuario === 'cliente'
+                ) {
                     $this->user = $user;
                     $this->success = true;
                     return $this;
@@ -205,34 +198,31 @@ class User extends \CoffeeCode\DataLayer\DataLayer
     /**
      * Método responsável por ativa um Usuário
      */
-    public function ativarUser(int $userId, string $action='1'): bool {
-        $us = $this->findById((int) $userId);
-        $us->ativo = $action;
-        return $us->save();
+    public function userBeOnline(int $userId, string $action = '1'): bool
+    {
+        // $us = $this->findById((int) $userId);
+        $this->ativo = $action;
+        return $this->save();
     }
 
 
     /**
      * método responsável por buscar o usuario admin
      * */
-    public function loginAdmin(array $data): User 
+    public function loginAdmin(array $data): User
     {
-        if(!empty($data['user_login']) && !empty($data['user_senha']))
-        {
+        if (!empty($data['user_login']) && !empty($data['user_senha'])) {
             $user = $this->find("login=:data_login", "data_login={$data['user_login']}")->fetch();
 
-            if($user && password_verify($data['user_senha'], $user->data()->senha ))
-            {
-                if($user->data()->tipoUsuario == 'superuser')
-                {
+            if ($user && password_verify($data['user_senha'], $user->data()->senha)) {
+                if ($user->data()->tipoUsuario == 'superuser') {
                     $this->user = $user->data();
                     $this->success = true;
                 } else {
                     $this->user = null;
                 }
             }
-        } else
-        {
+        } else {
             $this->success = false;
         }
         return $this;

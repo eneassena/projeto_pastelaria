@@ -11,11 +11,22 @@ use Source\Service\LojaService;
 use Source\Service\RestritaService;
 use CoffeeCode\Router\Router;
 use stdClass;
- 
+
 class areaRestritaController extends Controller
 {
   /** @var User|null[$user] */
   public $user = null;
+  protected $restritaService;
+  protected $lojaService;
+  protected $success;
+  private const TYPE_USER_SESSION = "user_system";
+
+  protected $messages = [
+    "Usuário Desconectado com sucesso!",    // [0]
+    "Usuário Conectado com sucesso!",       // [1]
+    "Credenciais invalidas!",               // [1]
+  ];
+
 
   public function __construct(Router $router)
   {
@@ -27,10 +38,11 @@ class areaRestritaController extends Controller
     $this->lojaService = new LojaService;
     $this->router = $router;
 
+
     $this->user = $this->showUserOn();
     $this->data['user'] = $this->user ? $this->user : null;
   }
- 
+
   /**
    * Metodo reflete atualização de produtos
    * @param string $name
@@ -57,6 +69,8 @@ class areaRestritaController extends Controller
    */
   public function home(array $data)
   {
+
+
     $page = null;
 
     $this->data['classNavigate'] = 'active';
@@ -66,14 +80,14 @@ class areaRestritaController extends Controller
     if (isset($data['message']))
       $this->data['message'] = $data['message'];
 
-    if (!isset($_SESSION['user_superuser'])) {
+    if (!isset($_SESSION[areaRestritaController::TYPE_USER_SESSION])) {
       $page = "admin/login_admin";
       $this->router->redirect('area-restrita/login-admin');
-    } else {
-      $page = "admin/dashboad";
-      $this->showUserOn();
     }
-    echo $this->templates->render($page, $this->data);
+
+    $this->showUserOn();
+    $page = "admin/dashboad";
+    echo $this->views->render($page, $this->data);
   }
 
   /**
@@ -88,7 +102,7 @@ class areaRestritaController extends Controller
     $this->showUserOn();
     $this->data['title'] = SITE . " | Pedido";
 
-    echo $this->templates->render("admin/pedido", $this->data);
+    echo $this->views->render("admin/pedido", $this->data);
   }
 
   /**
@@ -117,8 +131,8 @@ class areaRestritaController extends Controller
     if ($data['id_pedido']) {
       $idPedido = (int) $data['id_pedido'];
 
-      $pedido = (new PedidoModel)
-        ->find("idPedido=:cod_pedido", "cod_pedido={$idPedido}")
+      $pedido = new PedidoModel;
+      $pedido->find("idPedido=:cod_pedido", "cod_pedido={$idPedido}")
         ->fetch();
 
       $pedido->buscarPedidoDetalhado();
@@ -128,7 +142,7 @@ class areaRestritaController extends Controller
 
         $this->data['title'] = SITE . "Edição Pedido";
 
-        echo $this->templates->render('admin/edicaoPedido/edit_pedido', $this->data);
+        echo $this->views->render('admin/edicaoPedido/edit_pedido', $this->data);
       }
     }
   }
@@ -144,22 +158,22 @@ class areaRestritaController extends Controller
     $pedido = (new PedidoModel)->findById((int) $dataFormPedidoDetalhe['id_pedido']);
 
     if ($pedido->data()) {
-      if(!is_null($dataFormPedidoDetalhe['taxa_entrega'])) {
+      if (!is_null($dataFormPedidoDetalhe['taxa_entrega'])) {
         $pedido->taxaDeEntrega = str_replace(",", ".", $dataFormPedidoDetalhe['taxa_entrega']);
       }
 
       $pedido->situacao = $dataFormPedidoDetalhe['situacao'];
       $pedido->updated_at = date('Y-m-d H:m:s');
-      $this->success= $pedido->save();
-      
+      $this->success = $pedido->save();
+
       $message = "pedido foi atualizado";
     } else {
       $this->success = false;
     }
     $this->router->redirect("area-restrita/pedido/$message");
   } // end storePedidoDetalhes()
-  
-   
+
+
   /**
    * listagem dos pasteis
    * @param array[$data]
@@ -171,12 +185,12 @@ class areaRestritaController extends Controller
 
     $this->data['pastels'] = (new CardapioPastelModel)->find()->fetch(true);
 
-    if (isset($_SESSION['user_superuser']['on'])) {
+    if (isset($_SESSION[areaRestritaController::TYPE_USER_SESSION])) {
       $this->data['user'] = $this->showUserOn();
     }
     $this->data['title'] = SITE . " - Area Restrita";
 
-    echo $this->templates->render("admin/pastel", $this->data);
+    echo $this->views->render("admin/pastel", $this->data);
   }
 
   /**
@@ -192,7 +206,7 @@ class areaRestritaController extends Controller
 
     $pastel = (new CardapioPastelModel)->findById($idPastel);
 
-    echo $this->templates->render('admin/forms/editar_pastel', [
+    echo $this->views->render('admin/forms/editar_pastel', [
       "pastel" => $pastel->data()
     ]);
   }
@@ -257,7 +271,7 @@ class areaRestritaController extends Controller
     $this->router->redirect("area-restrita/pastel/$message");
   }
 
-  
+
 
   /**
    * listagem das bebidas
@@ -273,13 +287,13 @@ class areaRestritaController extends Controller
 
     $this->data['bebidas'] = $bebidas;
 
-    if (isset($_SESSION['user_superuser']['on'])) {
+    if (isset($_SESSION[areaRestritaController::TYPE_USER_SESSION])) {
       $this->data['user'] = $this->showUserOn();
     }
 
     $this->data['title'] = SITE . " - Area Restrita";
 
-    echo $this->templates->render("admin/bebida", $this->data);
+    echo $this->views->render("admin/bebida", $this->data);
   }
 
   /**
@@ -297,7 +311,7 @@ class areaRestritaController extends Controller
       $bebida = (new BebidaModel)->findById($idBebida);
 
       if ($bebida) {
-        echo $this->templates->render('admin/forms/editar_bebida', [
+        echo $this->views->render('admin/forms/editar_bebida', [
           'bebida' => $bebida->data()
         ]);
       }
@@ -305,9 +319,8 @@ class areaRestritaController extends Controller
       $message = 'Bebida nao foi encontrada';
       $this->router->redirect("area-restrita/bebida/$message");
     }
-
   }
- 
+
 
   /**
    * salvar alteração do produto bebida
@@ -357,10 +370,10 @@ class areaRestritaController extends Controller
   {
     if (isset($data['message'])) {
       $this->data['message'] = $data['message'];
-    } 
-    
+    }
+
     $this->data['title'] = SITE . " - Painel Admin";
-    echo $this->templates->render("admin/login_admin", $this->data);
+    echo $this->views->render("admin/login_admin", $this->data);
   }
 
 
@@ -368,36 +381,7 @@ class areaRestritaController extends Controller
    * @param array[$data] = []
    * @return void
    */
-  public function login_validate(array $value = []): void
-  {
-    if (in_array("", $_POST)) {
-      $message = "Preencha os campos corretamente para proseguir.";
-      $this->router->redirect("area-restrita/login-admin/$message");
-    }
 
-    $data = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-
-    $admin = (new User())->loginAdmin($data);
-
-    if ( $admin->success ) {
-
-      (new User)->ativarUser((int) $admin->user->idUser, '1');
-
-      $_SESSION['user_' . $admin->user->tipoUsuario]['on'] = [
-        'id' => $admin->user->idUser,
-        'tipoUser' => $admin->user->tipoUsuario,
-        'ativo' => $admin->user->ativo
-      ];
-      unset($admin);
-      $this->router->redirect(
-        "area-restrita/seja-bem-vindo/Login Realizado com sucesso!"
-      );
-    } else {
-      $this->router->redirect(
-        "area-restrita/login-admin/Informe suas credenciais de acesso corretamente!"
-      );
-    }
-  }
 
   /**
    * @param array[$data]
@@ -405,28 +389,16 @@ class areaRestritaController extends Controller
    */
   public function seja_bem_vindo(array $data): void
   {
-    if (isset($_SESSION['user_superuser']['on'])) {
+    if (isset($this->messages[(int)$data['message']])) {
+      $this->data['message'] = $this->messages[(int)$data['message']];
+    }
+    if (isset($_SESSION[areaRestritaController::TYPE_USER_SESSION])) {
       $this->data['user'] = $this->showUserOn();
     }
 
     $this->data['title'] = "Pastelaria - Area Restrita";
-    $this->data['message'] = isset($data['message']) ? $data['message'] : '...';
-    echo $this->templates->render("admin/dashboad", $this->data);
-  }
-
-  /**
-   * Metodo realiza logout
-   * @return void
-   */
-  public function logout(): void
-  {
-    if (isset($_SESSION['user_superuser']['on'])) {
-      (new User)->ativarUser((int) $_SESSION['user_superuser']['on']['id'], '0');
-
-      unset($_SESSION['user_superuser']['on']);
-
-      $this->router->redirect('area-restrita/login-admin/desconectado com sucesso!');
-    }
+    // $this->data['message'] = isset($data['message']) ? $data['message'] : '...';
+    echo $this->views->render("admin/dashboad", $this->data);
   }
 
   /**
@@ -436,8 +408,6 @@ class areaRestritaController extends Controller
    */
   public function showUserOn(): stdClass|null
   {
-    $idSuperUser = isset($_SESSION['user_superuser']['on']) ? $_SESSION['user_superuser']['on']['id'] : null;
-
-    return $idSuperUser ? (new User)->findById((int) $idSuperUser)->data() : null;
+    return AuthenticateAdmin::showUserOn();
   }
 }

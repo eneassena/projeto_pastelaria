@@ -6,16 +6,14 @@ namespace Source\Controller\Restrita;
 use CoffeeCode\Router\Router;
 use League\Plates\Engine;
 
-use Source\Controller\Restrita\Interface\areaRestritaInterface;
-
-abstract class Controller implements areaRestritaInterface
+abstract class Controller
 {
   /** @var Engine[$views] */
-  private $views = null;
+  protected $views = null;
   /** @var array[$data] */
-  private $data = null;
+  protected $data = null;
   /** @var Router[$router] */
-  private $router = null;
+  protected $router = null;
 
   /** 
    * @return void
@@ -51,7 +49,7 @@ abstract class Controller implements areaRestritaInterface
   public function getRouter(): Router|null
   {
     return $this->router;
-  } 
+  }
 
   /**
    * @param Router[$router]
@@ -62,6 +60,9 @@ abstract class Controller implements areaRestritaInterface
     $this->router = $router;
   }
 
+  /**
+   * @return void
+   */
   public function __construct()
   {
     $this->init();
@@ -70,9 +71,10 @@ abstract class Controller implements areaRestritaInterface
   /**
    * @return void
    */
-  private function init(): void {
-    $this->templates = new Engine(PATH_TEMPLATE, 'php');
-    $this->data = []; 
+  private function init(): void
+  {
+    $this->views = new Engine(PATH_TEMPLATE, 'php');
+    $this->data = [];
     $this->router = new Router(ROOT);
   }
 }

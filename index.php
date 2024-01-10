@@ -6,15 +6,15 @@ use CoffeeCode\Router\Router;
 use CoffeeCode\DataLayer\Connect;
 
 
-// session_start();
-//var_dump(session_regenerate_id());
+session_start();
+session_regenerate_id(true);
 //var_dump($_SESSION);
- 
+
 $route = new Router(ROOT);
- 
+
 $c = Connect::getInstance();
 $e = Connect::getError();
-if( $e){
+if ($e) {
     var_dump($e);
     die;
 }
@@ -107,17 +107,17 @@ $route->namespace("Source\Controller\Restrita");
 $route->group('area-restrita');
 
 // painel de acesso
-$route->get("/", "areaRestritaController:home", "area_restrita.home");
-$route->get("/{message}", "areaRestritaController:home", "area_restrita.home");
-$route->get("/login-admin", "areaRestritaController:login_admin", "area_restrita.login_admin");
-$route->get("/login-admin/{message}", "areaRestritaController:login_admin", "area_restrita.login_admin");
-$route->post("/login-validate", "areaRestritaController:login_validate", "area_restrita.login_validate");
+$route->get("/", "AuthenticateAdmin:home");
+$route->get("/{message}", "AuthenticateAdmin:home");
+$route->get("/login-admin", "AuthenticateAdmin:login_admin");
+$route->get("/login-admin/{message}", "AuthenticateAdmin:login_admin");
+$route->post("/login-validate", "AuthenticateAdmin:login_validate");
 
 
-if(isset($_SESSION['user_superuser'])){
+if (isset($_SESSION['user_system'])) {
     // main
-    $route->get("/", "areaRestritaController:home", "areaRestrita.home");
-    $route->get("/{message}", "areaRestritaController:home", "areaRestrita.home");
+    $route->get("/dashboard", "areaRestritaController:home");
+    $route->get("/dashboard/{message}", "areaRestritaController:home");
 
     // manipulando pedidos
     $route->get("/remove-pedido/{id_pedido}", "areaRestritaController:remove_pedido");
@@ -140,24 +140,20 @@ if(isset($_SESSION['user_superuser'])){
     $route->post("/bebida-store", "areaRestritaController:store_bebida", "areaRestrita.store_bebida");
     $route->get("/bebida-remove/{id_bebida}", "areaRestritaController:remove_bebida", "areaRestrita.remove_bebida");
 
-    // chat
-    $route->get("/chat", "ChatContactController:chat", "name.chat");
-    $route->post("/chat", "ChatContactController:store", "name.store");
-
 
     // serviço de pedidos
     $route->get("/pedido", "areaRestritaController:pedido", "areaRestritaController.pedido");
     $route->get("/pedido/{message}", "areaRestritaController:pedido", "areaRestritaController.pedido");
 
     // serviço de acesso a plataforma restrita
-     $route->get("/seja-bem-vindo/{message}", "areaRestritaController:seja_bem_vindo", "areaRestrita.seja_bem_vindo");
+    $route->get("/seja-bem-vindo/{message}", "areaRestritaController:seja_bem_vindo", "areaRestrita.seja_bem_vindo");
     $route->get("/cadastro-store", "areaRestritaController:store", "areaRestrita.store");
     $route->get("/show-user-on", "areaRestritaController:showUserOn", "areaRestrita.showUserOn");
 
 
 
     // logout
-    $route->get("/logout", "areaRestritaController:logout", "auth.logout");
+    $route->get("/logout", "AuthenticateAdmin:logout");
 }
 
 /**
