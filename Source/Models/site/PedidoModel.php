@@ -12,7 +12,7 @@ class PedidoModel extends DataLayer
 
   /** @var User[$user] */
   private static $user = null;
-  
+
   /**
    * atributo responsavel por armazenar detalhes de um pedido
    * */
@@ -151,6 +151,10 @@ class PedidoModel extends DataLayer
     $items_bebida = (new PedidoBebidaModel)->get_items_pedido($this->idPedido);
     $enderecoCliente = (new EnderecoUserModel)->buscarEndereco($this->fk1_user_id);
 
+
+
+
+
     $this->detalhes = new stdClass();
     // cliente
     $this->detalhes->idUserCli               = $userPedido->idUser;
@@ -231,7 +235,4 @@ class PedidoModel extends DataLayer
     }
     return $this->save();
   }
-
- 
-
 } // end class

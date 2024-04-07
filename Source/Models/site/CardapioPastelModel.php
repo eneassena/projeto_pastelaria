@@ -10,7 +10,7 @@ class CardapioPastelModel extends DataLayer
   public $success = false;
 
   /** @var array[$attributes] */
-  private $attributes = [ 'saborDoPastel', 'valorUnitario' ];
+  private $attributes = ['saborDoPastel', 'valorUnitario'];
 
   function __construct()
   {
@@ -21,7 +21,8 @@ class CardapioPastelModel extends DataLayer
    * @param array[$data]
    * @return CardapioPastelModel
    */
-  public function updateCardapio(array $data): CardapioPastelModel {
+  public function updateCardapio(array $data): CardapioPastelModel
+  {
     $this->saborDoPastel = $data['saborDoPastel'];
     $this->ingrediente = $data['ingrediente'];
     $this->valorUnitario = $data['valorUnitario'];
@@ -35,7 +36,7 @@ class CardapioPastelModel extends DataLayer
    */
   public function new_cardapio(array $data): CardapioPastelModel
   {
-    if(in_array('', $data)){
+    if (in_array('', $data)) {
       $this->success = false;
       return $this;
     } else {
@@ -56,7 +57,7 @@ class CardapioPastelModel extends DataLayer
   {
     $pastel = (new CardapioPastelModel)->findById((int)$dataEdit['idPastel']);
 
-    if($pastel){
+    if ($pastel) {
       $pastel->saborDoPastel = $dataEdit['saborDoPastel'];
       $pastel->ingrediente = $dataEdit['ingrediente'];
       $pastel->valorUnitario = $dataEdit['valorUnitario'];
@@ -77,12 +78,12 @@ class CardapioPastelModel extends DataLayer
   {
     $pastel = $this->findById($id_pastel);
 
-    if($pastel){ 
+    if ($pastel) {
       $pastel->destroy();
       $this->success = true;
     } else {
       $this->success = false;
-    }    
+    }
     return $this;
   }
 }

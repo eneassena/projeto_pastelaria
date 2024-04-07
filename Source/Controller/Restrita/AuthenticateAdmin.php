@@ -32,7 +32,6 @@ class AuthenticateAdmin extends Controller
      */
     public function home(): void
     {
-
         if (!isset($_SESSION['user_system'])) {
             $this->router->redirect("/area-restrita/login-admin");
         }
@@ -41,7 +40,7 @@ class AuthenticateAdmin extends Controller
 
     public function login_admin(array $args): void
     {
-        if (isset($this->messages[(int)$args['message']])) {
+        if (isset($args['message']) && !empty($args['message'])) {
             $this->data['message'] = $this->messages[(int)$args['message']];
         }
 

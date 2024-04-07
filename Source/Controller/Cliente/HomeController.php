@@ -6,10 +6,9 @@ use CoffeeCode\Router\Router;
 
 class HomeController extends Controller
 {
-
 	public function __construct(Router $router)
 	{
-		parent::__construct(); 
+		parent::__construct();
 		$this->setRouter($router);
 	}
 
@@ -19,15 +18,15 @@ class HomeController extends Controller
 	 */
 	private function helper_home_message(array $data = []): void
 	{
-        if(isset($data['message'])){
+		if (isset($data['message'])) {
 			$data = [
-                'msg' => $data['message'],
-                'cls' => 'info', 'status' => false
-            ];
+				'msg' => $data['message'],
+				'cls' => 'info', 'status' => false
+			];
 
 			$this->setData('message', $data);
-        }
-    }
+		}
+	}
 
 	/**
 	 * @param array[$data]
@@ -48,9 +47,49 @@ class HomeController extends Controller
 	 */
 	public function error(array $data): void
 	{
-		$this->data['title'] = SITE . " | Error";
-		$this->data['error'] = $data['errcode'];
-		echo $this->getTemplate()->render('site/erro', $this->data);
+		$this->setData('title', SITE . " | Error");
+		$this->setData('error', $data['errcode']);
+		echo $this->getTemplate()->render('site/erro', $this->getData());
+	}
+}
+
+
+class PDOConnect
+{
+	protected $conexao = null;
+	public function __construct($server, $username, $password, $dbname)
+	{
+		$this->conexao = null;
+	}
+	function insert(array $dados): mixed
+	{
+		return "not implementation";
 	}
 
+	function select(bool $all = false, int $id = 0)
+	{
+		if ($all) {
+			return "not implementation";
+		}
+		return "not implementation";
+	}
+
+	function update(int $id, array $dados)
+	{
+		return "not implementation";
+	}
+
+	function delete(int $id)
+	{
+		return "not implementation";
+	}
+}
+
+
+class MySQLOperations extends PDOConnect
+{
+	public function __construct()
+	{
+		parent::__construct('$server', '$username', '$password', '$dbname');
+	}
 }

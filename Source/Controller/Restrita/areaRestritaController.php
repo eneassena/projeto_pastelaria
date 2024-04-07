@@ -128,14 +128,21 @@ class areaRestritaController extends Controller
    * */
   public function buscarPedidoDetalhes(array $data): void
   {
+
     if ($data['id_pedido']) {
       $idPedido = (int) $data['id_pedido'];
 
-      $pedido = new PedidoModel;
-      $pedido->find("idPedido=:cod_pedido", "cod_pedido={$idPedido}")
-        ->fetch();
+      $pedido = (new PedidoModel)->find("idPedido=:cod_pedido", "cod_pedido={$idPedido}")->fetch();
 
-      $pedido->buscarPedidoDetalhado();
+      // var_dump(
+      //   (new PedidoModel)->findById($idPedido),
+      //   (new PedidoModel)->find("idPedido=:cod_pedido", "cod_pedido={$idPedido}")->fetch(),
+      //   $pedido
+      // );
+      // die;
+      if ($pedido) {
+        $pedido = $pedido->buscarPedidoDetalhado();
+      }
 
       if ($pedido) {
         $this->data['detalhesPedido'] = $pedido->detalhes;
