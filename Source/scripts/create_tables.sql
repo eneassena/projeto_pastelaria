@@ -1,11 +1,11 @@
 -- -----------------------------------------------------
--- Schema pastelaria_gaucho
+-- Schema projeto_pastelaria
 -- -----------------------------------------------------
 
 
 
-CREATE SCHEMA IF NOT EXISTS `pastelaria_gaucho2` DEFAULT CHARACTER SET utf8 ;
-USE `pastelaria_gaucho2` ;
+CREATE SCHEMA IF NOT EXISTS `projeto_pastelaria` DEFAULT CHARACTER SET utf8 ;
+USE `projeto_pastelaria` ;
 
 -- -----------------------------------------------------
 -- Table `modelando_pastelaria`.`localizacaos`
