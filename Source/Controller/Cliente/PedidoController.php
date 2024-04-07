@@ -70,7 +70,7 @@ class PedidoController extends Controller
     } else {
       $message = "Loja Fechada, Tente Mais tarde!";
     }
-
+    $message = urlencode($message);
     $this->getRouter()->redirect("pedido/{$message}");
   }
 
@@ -94,6 +94,7 @@ class PedidoController extends Controller
     } else {
       $message = "Loja Fechada, Tente Mais tarde!";
     }
+    $message = urlencode($message);
     $this->getRouter()->redirect("pedido/{$message}");
   }
 
@@ -115,6 +116,7 @@ class PedidoController extends Controller
     } else {
       $message = "Loja Fechada, Tente Mais tarde!";
     }
+    $message = urlencode($message);
     $this->getRouter()->redirect("pedido/{$message}");
   }
 
@@ -136,6 +138,7 @@ class PedidoController extends Controller
     } else {
       $message = "Loja Fechada, Tente Mais tarde!";
     }
+    $message = urlencode($message);
     $this->getRouter()->redirect("pedido/{$message}");
   }
 
@@ -149,16 +152,20 @@ class PedidoController extends Controller
       $dataset = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
       $pedido = (new \Source\Models\site\PedidoModel())->createNew($dataset);
+      $message = "";
 
       if ($pedido->success) {
-        $this->setData('message', "Pedido Solicitado com success");
+        $message = urlencode("Pedido Solicitado com success");
+        $this->setData('message', $message);
       } else {
-        $this->setData('message', 'Falha ao solicita um novo peiddo');
+        $message = urlencode("Falha ao solicita um novo peiddo");
+        $this->setData('message', $message);
       }
 
       LojaService::limpar_carrinho();
     } else {
-      $this->setData('message', "Loja Fechada, Tente Mais tarde!");
+      $message = urlencode("Loja Fechada, Tente Mais tarde!");
+      $this->setData('message', $message);
     }
 
     $this->getRouter()->redirect("ver-pedido/{$this->getData()['message']}");

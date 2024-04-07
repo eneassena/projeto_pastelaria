@@ -4,7 +4,7 @@ require __DIR__ . "/vendor/autoload.php";
 
 use CoffeeCode\Router\Router;
 
-
+// var_dump(password_hash('admin123', PASSWORD_DEFAULT));
 session_start();
 session_regenerate_id(true);
 

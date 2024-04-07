@@ -108,15 +108,15 @@ function getProdutos(string $name_cart): array
  */
 function inFuncionamento(): bool
 {
-    $horas = (int) date('H');
-    $minutos = (int) date('i');
+    // $horas = (int) date('H');
+    // $minutos = (int) date('i');
 
-    if ($horas > 16 && $horas <= 23) {
-        if ($horas == 22 && $minutos == (59 + 1)) {
-            return false;
-        }
-        return true;
-    }
+    // if ($horas > 16 && $horas <= 23) {
+    //     if ($horas == 22 && $minutos == (59 + 1)) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
-    return false;
+    return true;
 }

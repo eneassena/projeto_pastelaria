@@ -116,7 +116,7 @@ class areaRestritaController extends Controller
     if ($idPedido) {
       $pedido = (new PedidoModel)->findById($idPedido);
       $pedido->destroy();
-      $message = "Pedido foi removido";
+      $message = urlencode("Pedido foi removido");
     }
     $this->router->redirect("area-restrita/$message");
   }
@@ -177,6 +177,7 @@ class areaRestritaController extends Controller
     } else {
       $this->success = false;
     }
+    $message = urlencode($message);
     $this->router->redirect("area-restrita/pedido/$message");
   } // end storePedidoDetalhes()
 
@@ -255,6 +256,7 @@ class areaRestritaController extends Controller
         $message = "Falha ao criar produto";
       }
     }
+    $message = urlencode($message);
     $this->router->redirect("area-restrita/pastel/$message");
   }
 
@@ -271,10 +273,10 @@ class areaRestritaController extends Controller
     if ($idPastel) {
       $pastel = (new CardapioPastelModel)->findById($idPastel);
       $pastel->destroy();
-      $message = "Produto foi removido com êxito";
+      $message = urlencode("Produto foi removido com êxito");
       $this->router->redirect("area-restrita/pastel/$message");
     }
-    $message = "Produto não foi encontrado";
+    $message = urlencode("Produto não foi encontrado");
     $this->router->redirect("area-restrita/pastel/$message");
   }
 
@@ -323,7 +325,7 @@ class areaRestritaController extends Controller
         ]);
       }
     } else {
-      $message = 'Bebida nao foi encontrada';
+      $message = urlencode('Bebida nao foi encontrada');
       $this->router->redirect("area-restrita/bebida/$message");
     }
   }
@@ -340,7 +342,7 @@ class areaRestritaController extends Controller
 
     $this->restritaService->editar_bebida($dataFormPost);
 
-    $message = "Produto bebida foi alterado com sucesso!";
+    $message = urlencode("Produto bebida foi alterado com sucesso!");
 
     $this->router->redirect("area-restrita/bebida/$message");
   }
@@ -361,7 +363,7 @@ class areaRestritaController extends Controller
 
       $bebida->destroy();
 
-      $message = "Produto bebida foi removido com sucesso!";
+      $message = urlencode("Produto bebida foi removido com sucesso!");
     }
 
 
