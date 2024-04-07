@@ -88,17 +88,6 @@ function user_load()
 
 
 
-/**
- * @param array[$info] = []
- * @param int[$flag] = 1
- * @return void
- */
-function dd(array $info = [], int $flag = 1): void
-{
-    // ConfigService::dd($info, $flag);
-    echo '<pre>';
-    var_dump($info);
-}
 
 /**
  * @param string[$name_cart]
